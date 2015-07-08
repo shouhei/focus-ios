@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		653D6A511B4D5B56005EB0A0 /* AloeEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4C1B4D5B56005EB0A0 /* AloeEase.swift */; };
+		653D6A521B4D5B56005EB0A0 /* AloeTween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4D1B4D5B56005EB0A0 /* AloeTween.swift */; };
+		653D6A531B4D5B56005EB0A0 /* AloeTweenChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */; };
+		653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */; };
+		653D6A551B4D5B56005EB0A0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */; };
 		BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709991B4B8A7D00303C78 /* AppDelegate.swift */; };
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
@@ -26,6 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		653D6A4C1B4D5B56005EB0A0 /* AloeEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeEase.swift; sourceTree = "<group>"; };
+		653D6A4D1B4D5B56005EB0A0 /* AloeTween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTween.swift; sourceTree = "<group>"; };
+		653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTweenChain.swift; sourceTree = "<group>"; };
+		653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtil.swift; sourceTree = "<group>"; };
+		653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BA6709941B4B8A7D00303C78 /* focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709981B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709991B4B8A7D00303C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,9 +66,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		653D6A4A1B4D5B56005EB0A0 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				653D6A4B1B4D5B56005EB0A0 /* animation */,
+				653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */,
+				653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */,
+			);
+			name = libs;
+			path = ../../../../0/Downloads/libs;
+			sourceTree = "<group>";
+		};
+		653D6A4B1B4D5B56005EB0A0 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				653D6A4C1B4D5B56005EB0A0 /* AloeEase.swift */,
+				653D6A4D1B4D5B56005EB0A0 /* AloeTween.swift */,
+				653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
 		BA67098B1B4B8A7C00303C78 = {
 			isa = PBXGroup;
 			children = (
+				653D6A4A1B4D5B56005EB0A0 /* libs */,
 				BA6709961B4B8A7D00303C78 /* focus */,
 				BA6709AC1B4B8A7D00303C78 /* focusTests */,
 				BA6709951B4B8A7D00303C78 /* Products */,
@@ -212,7 +244,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653D6A531B4D5B56005EB0A0 /* AloeTweenChain.swift in Sources */,
+				653D6A511B4D5B56005EB0A0 /* AloeEase.swift in Sources */,
 				BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */,
+				653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */,
+				653D6A521B4D5B56005EB0A0 /* AloeTween.swift in Sources */,
+				653D6A551B4D5B56005EB0A0 /* BaseViewController.swift in Sources */,
 				BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +446,7 @@
 				BA6709B51B4B8A7D00303C78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BA6709B61B4B8A7D00303C78 /* Build configuration list for PBXNativeTarget "focusTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +455,7 @@
 				BA6709B81B4B8A7D00303C78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
