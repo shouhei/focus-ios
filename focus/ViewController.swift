@@ -8,17 +8,24 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, CLLocationManagerDelegate{
 
     private var locationManager: CLLocationManager!
     private var timerButton: UIButton!
     private var timerLabel: UILabel!
+    private var countNum = 0
+    private var timerRunning = false
+    private var timer = NSTimer()
     private var latLabel: UILabel!
     private var lngLabel: UILabel!
-    private var cnt: Float = 0
-    private var timer: NSTimer!
-    
+    private var lat: Double!
+    private var lng: Double!
+    private var date: String!
+    private var foursquareUrl: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,9 +34,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
         timerLabel.backgroundColor = UIColor.grayColor()
-        timerLabel.text = "TIME:\(cnt)"
         timerLabel.textColor = UIColor.whiteColor()
         timerLabel.textAlignment = NSTextAlignment.Center
+        timerLabel.text = "00:00:00"
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
         
         //latlnglabel
@@ -45,7 +52,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         timerButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
         timerButton.layer.cornerRadius = 20.0
         timerButton.backgroundColor = UIColor.redColor()
-        timerButton.setTitle("START!", forState: UIControlState.Normal)
+        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 100)
         timerButton.addTarget(self, action: "onMyButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -58,11 +65,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         if status == CLAuthorizationStatus.NotDetermined {
             self.locationManager.requestAlwaysAuthorization()
         }
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10
         
         locationManager.startUpdatingLocation()
-        
         
         
         //addwindow
@@ -71,33 +78,60 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
     }
     
+    func update() {
+        countNum++
+        timerFormat(countNum)
+    }
+    
+    func timerFormat(countNum: Int) {
+        let h = countNum / 3600
+        let m = (countNum - h*3600) / 60
+        let s = countNum % 60
+        
+        timerLabel.text = String(format: "%02d:%02d.%02d", h, m, s)
+    }
+    
+    
     func onMyButtonClick(sender: UIButton){
-        if timer?.valid == true {
+        if timerRunning == false {
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+            timerButton.backgroundColor = UIColor.blueColor()
+            timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
+            timerRunning = true
             
-            timer.invalidate()
-            
-            sender.backgroundColor = UIColor.redColor()
-            sender.setTitle("START", forState: UIControlState.Normal)
-            
-        }else{
-            
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "onUpdate:", userInfo: nil, repeats: true)
-
-            sender.backgroundColor = UIColor.blueColor()
-            sender.setTitle("STOP", forState: UIControlState.Normal)
-            
+        } else {
+            //TODO集中完了画面遷移
+            print("onMyButtonClick.True")
+        }
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP")  // JPロケール
+       
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"// フォーマットの指定
+        println(dateFormatter.stringFromDate(NSDate()))
+//        println(self.foursquareUrl)
+        
+        Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
+            if (response?.statusCode == 200) {
+                let json = SwiftyJSON.JSON(data!)
+                println(json)
+                return;
+                
+            }
         }
     }
     
     func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [AnyObject]!){
         
         // 緯度・経度の表示.
-        latLabel.text = "緯度：\(manager.location.coordinate.latitude)"
+        self.lat = manager.location.coordinate.latitude
+        latLabel.text = "緯度：\(self.lat)"
         latLabel.textAlignment = NSTextAlignment.Center
         
-        lngLabel.text = "経度：\(manager.location.coordinate.longitude)"
+        self.lng = manager.location.coordinate.longitude
+        lngLabel.text = "経度：\(self.lng)"
         lngLabel.textAlignment = NSTextAlignment.Center
         
+        foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(String(stringInterpolationSegment: self.lat)),\(String(stringInterpolationSegment: self.lng))&client_id=ZBQVZ0XB5QSSEWODAWANQWIB51KNQTZBQVKIE0NYT435C1JT&client_secret=NNZB2RJAWHNQGE5WCFCWFYSWZILDZPJQ4JRW3ZHQEMJBLUSH&v=20150714"
         
         self.view.addSubview(latLabel)
         self.view.addSubview(lngLabel)
@@ -109,14 +143,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         print("error")
     }
     
-    func onUpdate(timer: NSTimer){
-        cnt += 0.1
-        
-        let str = "TIME:".stringByAppendingFormat("%.1f", cnt)
-        
-        timerLabel.text = str
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
