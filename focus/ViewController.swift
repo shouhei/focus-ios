@@ -25,7 +25,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     private var lng: Double!
     private var date: String!
     private var foursquareUrl: String!
-
+    private var json: JSON!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -112,12 +113,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
             if (response?.statusCode == 200) {
-                let json = SwiftyJSON.JSON(data!)
-                println(json)
-                return;
+                self.json = SwiftyJSON.JSON(data!)
+                println(self.json)
+                println(self.json["response"]["venues"][0]["name"])
                 
+            }else {
+                //TODO エラー処理
+                println(error)
             }
+            
+            let selectLocationViewController: SelectLocationViewController = SelectLocationViewController()
+            selectLocationViewController.setUpParameter(self.json)
+            self.presentViewController(selectLocationViewController, animated: true, completion: nil)
+            
         }
+        
     }
     
     func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [AnyObject]!){

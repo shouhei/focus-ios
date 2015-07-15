@@ -12,6 +12,7 @@
 		653D6A531B4D5B56005EB0A0 /* AloeTweenChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */; };
 		653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */; };
 		653D6A551B4D5B56005EB0A0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */; };
+		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
 		BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709991B4B8A7D00303C78 /* AppDelegate.swift */; };
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTweenChain.swift; sourceTree = "<group>"; };
 		653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtil.swift; sourceTree = "<group>"; };
 		653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
 		BA6709941B4B8A7D00303C78 /* focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709981B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709991B4B8A7D00303C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,13 @@
 			path = animation;
 			sourceTree = "<group>";
 		};
+		65AF7C8C1B5699AB00543970 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		69F6F3E6FE9B7270791E8349 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				653D6A4A1B4D5B56005EB0A0 /* libs */,
+				65AF7C8C1B5699AB00543970 /* model */,
 				BA6709961B4B8A7D00303C78 /* focus */,
 				BA6709AC1B4B8A7D00303C78 /* focusTests */,
 				BA6709951B4B8A7D00303C78 /* Products */,
@@ -135,6 +145,7 @@
 			children = (
 				BA6709991B4B8A7D00303C78 /* AppDelegate.swift */,
 				BA67099B1B4B8A7D00303C78 /* ViewController.swift */,
+				65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */,
 				BA67099D1B4B8A7D00303C78 /* Main.storyboard */,
 				BA6709A01B4B8A7D00303C78 /* Images.xcassets */,
 				BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */,
@@ -320,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653D6A531B4D5B56005EB0A0 /* AloeTweenChain.swift in Sources */,
+				65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */,
 				653D6A511B4D5B56005EB0A0 /* AloeEase.swift in Sources */,
 				BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */,
 				653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */,
