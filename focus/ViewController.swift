@@ -11,16 +11,15 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class ViewController: UIViewController, CLLocationManagerDelegate{
+class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocationDelegate{
 
     private var locationManager: CLLocationManager!
     private var timerButton: UIButton!
     private var timerLabel: UILabel!
+    private var locationLabel: UILabel!
     private var countNum = 0
     private var timerRunning = false
     private var timer = NSTimer()
-    private var latLabel: UILabel!
-    private var lngLabel: UILabel!
     private var lat: Double!
     private var lng: Double!
     private var date: String!
@@ -40,12 +39,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         timerLabel.text = "00:00:00"
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
         
-        //latlnglabel
         
-        latLabel = UILabel(frame: CGRectMake(0, 0, windowWidth(), 40))
-        latLabel.layer.position = CGPointMake(windowWidth()/2, windowWidth()/3)
-        lngLabel = UILabel(frame: CGRectMake(0, 0, windowWidth(), 40))
-        lngLabel.layer.position = CGPointMake(windowWidth()/2, windowWidth()/3 + 50)
+        //locationLabel
+        
+        locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
+        locationLabel.textColor = UIColor.whiteColor()
+        locationLabel.textAlignment = NSTextAlignment.Center
+        locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
         
         //timerButton
@@ -66,6 +66,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         if status == CLAuthorizationStatus.NotDetermined {
             self.locationManager.requestAlwaysAuthorization()
         }
+        self.view.backgroundColor = UIColorFromHex(0x00bfff)
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10
@@ -125,6 +126,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
             let selectLocationViewController: SelectLocationViewController = SelectLocationViewController()
             selectLocationViewController.setUpParameter(self.json)
             self.presentViewController(selectLocationViewController, animated: true, completion: nil)
+            selectLocationViewController.delegate = self
             
         }
         
@@ -134,23 +136,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
         // 緯度・経度の表示.
         self.lat = manager.location.coordinate.latitude
-        latLabel.text = "緯度：\(self.lat)"
-        latLabel.textAlignment = NSTextAlignment.Center
         
         self.lng = manager.location.coordinate.longitude
-        lngLabel.text = "経度：\(self.lng)"
-        lngLabel.textAlignment = NSTextAlignment.Center
         
         foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(String(stringInterpolationSegment: self.lat)),\(String(stringInterpolationSegment: self.lng))&client_id=ZBQVZ0XB5QSSEWODAWANQWIB51KNQTZBQVKIE0NYT435C1JT&client_secret=NNZB2RJAWHNQGE5WCFCWFYSWZILDZPJQ4JRW3ZHQEMJBLUSH&v=20150714"
-        
-        self.view.addSubview(latLabel)
-        self.view.addSubview(lngLabel)
         
     }
     
     
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         print("error")
+    }
+    
+    func locationSelect(locationName: String) {
+        
+        locationLabel.text = locationName
+        self.view.addSubview(locationLabel)
+        
     }
     
 

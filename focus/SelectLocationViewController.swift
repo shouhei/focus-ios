@@ -8,16 +8,42 @@
 import UIKit
 import SwiftyJSON
 
+protocol SelectLocationDelegate{
+    
+    func locationSelect(locationName: String)
+    
+}
+
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var _json: JSON!
-    let tableView = UITableView(frame: CGRectMake(0, 0, windowWidth(),windowHeight()))
+    let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
+    var delegate:SelectLocationDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
+        barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
+        
+        barLabel.text = "場所候補"
+        barLabel.textColor = UIColor.whiteColor()
+        barLabel.textAlignment = NSTextAlignment.Center
+        let backButton = UIButton()
+        backButton.addTarget(self, action: "backButtonTapped:", forControlEvents:.TouchUpInside)
+        let image = UIImage(named: "arrow18")
+        barBg.addSubview(backButton)
+        
+        backButton.setImage(image, forState: UIControlState.Normal)
+        backButton.frame = CGRectMake(5, 30, 30, 30)
+        barBg.addSubview(barLabel)
+        
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.view.addSubview(barBg)
         
     }
     
@@ -38,11 +64,29 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         
         cell?.textLabel?.font = UIFont(name:"Menlo-BoldItalic", size: 15)
         
-        
-//        cell!.tag = dic["id"]!.integerValue!
-//        cell?.backgroundColor = UIColor.lightGrayColor()
         return cell!
 
+    }
+    
+    func backButtonTapped(Sender: UIButton) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        println("1")
+        
+        
+        var location: String = self._json["response"]["venues"][indexPath.row]["name"].string!
+        
+        println(location)
+        
+        delegate.locationSelect(location)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     func setUpParameter(json: JSON){
