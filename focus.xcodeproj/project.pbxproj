@@ -15,6 +15,7 @@
 		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
 		65C169B41B593A6900FCFEC4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */; };
 		65C169B61B593AD800FCFEC4 /* SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169B51B593AD800FCFEC4 /* SwiftData.swift */; };
+		65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */; };
 		BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709991B4B8A7D00303C78 /* AppDelegate.swift */; };
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		65C169B51B593AD800FCFEC4 /* SwiftData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftData.swift; path = "../../../../0/Downloads/SwiftData-master 2/SwiftData.swift"; sourceTree = "<group>"; };
 		65C169B71B593B3800FCFEC4 /* Briding-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Briding-Header.h"; sourceTree = "<group>"; };
+		65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultViewController.swift; path = ../ResultViewController.swift; sourceTree = "<group>"; };
 		BA6709941B4B8A7D00303C78 /* focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709981B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709991B4B8A7D00303C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				BA6709991B4B8A7D00303C78 /* AppDelegate.swift */,
 				BA67099B1B4B8A7D00303C78 /* ViewController.swift */,
 				65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */,
+				65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */,
 				BA67099D1B4B8A7D00303C78 /* Main.storyboard */,
 				BA6709A01B4B8A7D00303C78 /* Images.xcassets */,
 				BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */,
@@ -344,6 +347,7 @@
 				653D6A511B4D5B56005EB0A0 /* AloeEase.swift in Sources */,
 				BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */,
 				653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */,
+				65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */,
 				653D6A521B4D5B56005EB0A0 /* AloeTween.swift in Sources */,
 				653D6A551B4D5B56005EB0A0 /* BaseViewController.swift in Sources */,
 				65C169B61B593AD800FCFEC4 /* SwiftData.swift in Sources */,

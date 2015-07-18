@@ -25,10 +25,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var date: String!
     private var foursquareUrl: String!
     private var json: JSON!
+    private var _location: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColorFromHex(0x00bfff)
         
         //timerLabel
         
@@ -54,7 +57,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerButton.backgroundColor = UIColor.redColor()
         timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 100)
-        timerButton.addTarget(self, action: "onMyButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+        timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
         //現在地取得
         
@@ -66,7 +69,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         if status == CLAuthorizationStatus.NotDetermined {
             self.locationManager.requestAlwaysAuthorization()
         }
-        self.view.backgroundColor = UIColorFromHex(0x00bfff)
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10
@@ -94,7 +96,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     }
     
     
-    func onMyButtonClick(sender: UIButton){
+    func onTimerButtonClick(sender: UIButton){
         
         if timerRunning == false {
             
@@ -104,8 +106,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             
         } else {
             
-            //TODO集中完了画面遷移
-            print("onMyButtonClick.True")
+            let resultViewController: ResultViewController = ResultViewController()
+            resultViewController.setUpParameter(_location, timer: countNum)
+            self.presentViewController(resultViewController, animated: true, completion: nil)
             
         }
         
@@ -150,12 +153,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
+        //TODOエラー処理
         print("error")
+        
     }
     
     func locationSelect(locationName: String) {
         
-        locationLabel.text = locationName
+        self._location = locationName
+        locationLabel.text = self._location
         self.view.addSubview(locationLabel)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
