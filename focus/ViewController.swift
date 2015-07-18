@@ -33,10 +33,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //timerLabel
         
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
-        timerLabel.backgroundColor = UIColor.grayColor()
         timerLabel.textColor = UIColor.whiteColor()
         timerLabel.textAlignment = NSTextAlignment.Center
-        timerLabel.text = "00:00:00"
+        timerLabel.text = "集中する？"
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
         
         
@@ -58,6 +57,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerButton.addTarget(self, action: "onMyButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
         //現在地取得
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         
@@ -95,28 +95,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     
     func onMyButtonClick(sender: UIButton){
+        
         if timerRunning == false {
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+            
             timerButton.backgroundColor = UIColor.blueColor()
             timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
             timerRunning = true
             
         } else {
+            
             //TODO集中完了画面遷移
             print("onMyButtonClick.True")
+            
         }
+        
         var dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP")  // JPロケール
-       
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"// フォーマットの指定
-        println(dateFormatter.stringFromDate(NSDate()))
-//        println(self.foursquareUrl)
         
+        println(dateFormatter.stringFromDate(NSDate()))
+        
+        //API処理
         Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
+            
             if (response?.statusCode == 200) {
+                
                 self.json = SwiftyJSON.JSON(data!)
-                println(self.json)
-                println(self.json["response"]["venues"][0]["name"])
                 
             }else {
                 //TODO エラー処理
@@ -134,7 +138,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [AnyObject]!){
         
-        // 緯度・経度の表示.
+        // 緯度・経度取得
+        
         self.lat = manager.location.coordinate.latitude
         
         self.lng = manager.location.coordinate.longitude
@@ -152,6 +157,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         locationLabel.text = locationName
         self.view.addSubview(locationLabel)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
     }
     

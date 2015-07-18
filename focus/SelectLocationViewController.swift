@@ -48,7 +48,9 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        
+        return 10
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,9 +77,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        println("1")
-        
         
         var location: String = self._json["response"]["venues"][indexPath.row]["name"].string!
         
