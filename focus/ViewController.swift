@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocationDelegate{
+class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocationDelegate, ResultDelegate {
 
     private var locationManager: CLLocationManager!
     private var timerButton: UIButton!
@@ -56,7 +56,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerButton.layer.cornerRadius = 20.0
         timerButton.backgroundColor = UIColor.redColor()
         timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
-        timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 100)
+        timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 125)
         timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
         //現在地取得
@@ -100,15 +100,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         if timerRunning == false {
             
-            timerButton.backgroundColor = UIColor.blueColor()
-            timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
-            timerRunning = true
+//            if self._location != nil{
+                timerButton.backgroundColor = UIColor.blueColor()
+                timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
+             self.timerRunning = true
             
+//            }
         } else {
-            
+            //結果画面移行画面
             let resultViewController: ResultViewController = ResultViewController()
             resultViewController.setUpParameter(_location, timer: countNum)
             self.presentViewController(resultViewController, animated: true, completion: nil)
+            resultViewController.delegate = self
+
+            //TODO: DB処理
             
         }
         
@@ -151,6 +156,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+    }
+    
     
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         //TODOエラー処理
@@ -167,7 +176,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
     }
     
-
+    func backbutton() {
+        self.timerRunning = false
+        timerButton.backgroundColor = UIColor.redColor()
+        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
+    }
+    
+    func resetTimer() {
+        
+        locationLabel.text = ""
+        timerLabel.text = "集中する？"
+        timerRunning = false
+        timer.invalidate()
+        
+        self.viewDidLoad()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

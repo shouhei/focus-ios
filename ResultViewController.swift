@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ResultDelegate{
+    
+    func resetTimer()
+}
+
 class ResultViewController: UIViewController {
     
     private var locationLabel: UILabel!
@@ -16,6 +21,7 @@ class ResultViewController: UIViewController {
     private var _location: String!
     private var _timer: Int!
     private var againButton: UIButton!
+    var delegate: ResultDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,7 @@ class ResultViewController: UIViewController {
         againButton.layer.cornerRadius = 20.0
         againButton.backgroundColor = UIColor.orangeColor()
         againButton.setTitle("もう一度？", forState: UIControlState.Normal)
-        againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 75)
+        againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 55)
         
         againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -76,6 +82,9 @@ class ResultViewController: UIViewController {
     }
     
     func onAgainButtonClick(sender: UIButton){
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate.resetTimer()
         
     }
     

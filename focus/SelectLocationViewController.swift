@@ -11,6 +11,7 @@ import SwiftyJSON
 protocol SelectLocationDelegate{
     
     func locationSelect(locationName: String)
+    func backbutton()
     
 }
 
@@ -18,7 +19,8 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     private var _json: JSON!
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
-    var delegate:SelectLocationDelegate!
+    var delegate: SelectLocationDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +74,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     
     func backButtonTapped(Sender: UIButton) {
         
+        delegate.backbutton()
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
