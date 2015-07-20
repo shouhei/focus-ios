@@ -8,6 +8,7 @@
 
 
 import UIKit
+import Alamofire
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -16,8 +17,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(tableView)
+        let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
+        barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
         
+        barLabel.text = "集中履歴"
+        barLabel.textColor = UIColor.whiteColor()
+        barLabel.textAlignment = NSTextAlignment.Center
+        barBg.addSubview(barLabel)
+        
+        Alamofire.request(.GET, "http://127.0.0.1:5000/example/migrateversion")
+            .responseJSON {(request, response, JSON, error) in
+                println(request)
+                println(response)
+                println(JSON)
+        }
+        
+        self.view.addSubview(tableView)
+        self.view.addSubview(barBg)
     }
     
     override func didReceiveMemoryWarning() {

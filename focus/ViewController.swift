@@ -39,7 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerLabel.textColor = UIColor.whiteColor()
         timerLabel.textAlignment = NSTextAlignment.Center
         timerLabel.text = "集中する？"
-        timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
+        timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
         
         
         //locationLabel

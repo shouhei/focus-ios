@@ -61,7 +61,7 @@ class ResultViewController: UIViewController {
         againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
         
-        timerLabel.text = "\(_timer)分"
+        timerLabel.text = "\(_timer)秒"
         locationLabel.text = "\(_location)で"
         
         self.view.addSubview(timerLabel)
