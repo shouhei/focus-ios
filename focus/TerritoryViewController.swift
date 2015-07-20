@@ -18,6 +18,8 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     private var mySearchBar: UISearchBar!
     private var userLocation: CLLocationCoordinate2D!
     private var destLocation: CLLocationCoordinate2D!
+    private var selectAnnotation: MKPointAnnotation!
+    private var mapPoint: CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,23 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         MyMapView.frame = self.view.bounds
         MyMapView.delegate = self
+        
+        myLocationManager = CLLocationManager()
+        myLocationManager.delegate = self
+        
+        //セキュリティ認証のステータスを取得
+        let status = CLLocationManager.authorizationStatus()
+        
+        //まだ認証が済んでなければ確認ダイアログを表示
+        if (status == CLAuthorizationStatus.NotDetermined) {
+            
+            self.myLocationManager.requestAlwaysAuthorization();
+            
+        }
+        myLocationManager.distanceFilter = 100.0
+        
+        self.myLocationManager.startUpdatingLocation()
+        
         
         self.view.addSubview(MyMapView)
         MyMapView.alpha = 0
@@ -91,7 +110,7 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         mySearchBar.text = ""
-        self.dismissViewControllerAnimated(true, completion: nil)
+        mySearchBar.resignFirstResponder()
     }
 
     
@@ -99,6 +118,33 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        
+        var userLocation = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude)
+        
+        var userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
+        
+        userLocAnnotation.coordinate = userLocation
+        userLocAnnotation.title = "現在地"
+        
+        //        MyMapView.addAnnotation(userLocAnnotation)
+        
+        MyMapView.alpha = 1.0
+        
+        let MySpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let MyRegion: MKCoordinateRegion = MKCoordinateRegionMake(userLocation, MySpan)
+        
+        self.MyMapView.region = MyRegion
+        //        self.view.addSubview(MyMapView)
+        
+    }
+    
+    // 位置情報取得に失敗した時に呼び出されるデリゲート.
+    func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
+        print("locationManager error")
+    }
+
     
     
 }
