@@ -103,15 +103,34 @@ class UserViewController: UIViewController, UITextFieldDelegate {
     }
     
     func onClickRegisterButton(sender: UIButton) {
-        println("register")
+        if (!checkPassword()) {
+            return showError("パスワードが一致しません。")
+        }
         
         var name = nameTextField.text
         var email = emailTextField.text
         var password = passwordTextField.text
-        
+    
         register(name, email: email, password: password)
         request_api(name, email: email, password: password)
         goToNextView()
+    }
+    
+    func checkPassword() -> Bool {
+        if (passwordTextField.text != passwordVerifyTextField.text) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func showError(error_message: String) {
+        let myAlert: UIAlertController = UIAlertController(title: "エラー", message: error_message, preferredStyle: .Alert)
+        let myOkAction = UIAlertAction(title: "OK", style: .Default) { action in
+            println("Action OK!!")
+        }
+        myAlert.addAction(myOkAction)
+        presentViewController(myAlert, animated: true, completion: nil)
     }
     
     func setNameTextField() {
@@ -174,6 +193,7 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         passwordVerifyTextField.borderStyle = UITextBorderStyle.RoundedRect
         passwordVerifyTextField.layer.position = CGPoint(x:self.view.bounds.width/2,y:310);
         passwordVerifyTextField.secureTextEntry = true
+        passwordVerifyTextField.layer.borderColor = UIColor.redColor().CGColor
         self.view.addSubview(passwordVerifyTextField)
     }
     
