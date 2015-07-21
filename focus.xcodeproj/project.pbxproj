@@ -12,6 +12,8 @@
 		59882F6C1B5E04CD00D148A0 /* AloeTweenChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F681B5E04CD00D148A0 /* AloeTweenChain.swift */; };
 		59882F6D1B5E04CD00D148A0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F691B5E04CD00D148A0 /* BaseViewController.swift */; };
 		59882F6F1B5E053700D148A0 /* AppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F6E1B5E053700D148A0 /* AppUtil.swift */; };
+		59882F831B5E0C8200D148A0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F821B5E0C8200D148A0 /* UserModel.swift */; };
+		59882F851B5E0E9000D148A0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F841B5E0E9000D148A0 /* UserViewController.swift */; };
 		599496DE1B5D781C0043A62B /* SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599496DD1B5D781C0043A62B /* SwiftData.swift */; };
 		652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9ED91B5A938A008238C9 /* RankViewController.swift */; };
 		652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */; };
@@ -46,6 +48,8 @@
 		59882F681B5E04CD00D148A0 /* AloeTweenChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTweenChain.swift; sourceTree = "<group>"; };
 		59882F691B5E04CD00D148A0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		59882F6E1B5E053700D148A0 /* AppUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtil.swift; sourceTree = "<group>"; };
+		59882F821B5E0C8200D148A0 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		59882F841B5E0E9000D148A0 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		599496DD1B5D781C0043A62B /* SwiftData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftData.swift; sourceTree = "<group>"; };
 		652F9ED91B5A938A008238C9 /* RankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
 		652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
@@ -121,8 +125,10 @@
 		65AF7C8C1B5699AB00543970 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				59882F821B5E0C8200D148A0 /* UserModel.swift */,
 			);
-			path = model;
+			name = model;
+			path = ../model;
 			sourceTree = "<group>";
 		};
 		69F6F3E6FE9B7270791E8349 /* Pods */ = {
@@ -138,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				59882F641B5E04CD00D148A0 /* libs */,
-				65AF7C8C1B5699AB00543970 /* model */,
 				BA6709961B4B8A7D00303C78 /* focus */,
 				BA6709951B4B8A7D00303C78 /* Products */,
 				69F6F3E6FE9B7270791E8349 /* Pods */,
@@ -158,8 +163,10 @@
 		BA6709961B4B8A7D00303C78 /* focus */ = {
 			isa = PBXGroup;
 			children = (
+				65AF7C8C1B5699AB00543970 /* model */,
 				BA6709991B4B8A7D00303C78 /* AppDelegate.swift */,
 				BA67099B1B4B8A7D00303C78 /* ViewController.swift */,
+				59882F841B5E0E9000D148A0 /* UserViewController.swift */,
 				65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */,
 				65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */,
 				65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */,
@@ -351,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59882F6B1B5E04CD00D148A0 /* AloeTween.swift in Sources */,
+				59882F851B5E0E9000D148A0 /* UserViewController.swift in Sources */,
 				65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */,
 				652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */,
 				652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */,
@@ -358,6 +366,7 @@
 				59882F6D1B5E04CD00D148A0 /* BaseViewController.swift in Sources */,
 				BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */,
 				59882F6F1B5E053700D148A0 /* AppUtil.swift in Sources */,
+				59882F831B5E0C8200D148A0 /* UserModel.swift in Sources */,
 				65C169BB1B5A7FE900FCFEC4 /* HistoryViewController.swift in Sources */,
 				59882F6A1B5E04CD00D148A0 /* AloeEase.swift in Sources */,
 				65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */,

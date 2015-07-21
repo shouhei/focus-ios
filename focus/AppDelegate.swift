@@ -16,27 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // Override point for customization after application launch.
-        
-        let firstTab: UIViewController = ViewController()
-        let secondTab: UIViewController = HistoryViewController()
-        let thirdTab: UIViewController = TerritoryViewController()
-        
-        
-        
-        firstTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 1)
-        secondTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.History, tag: 2)
-        thirdTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.TopRated, tag: 3)
-
-        
-        
-        let tabs = NSArray(objects: firstTab, secondTab, thirdTab)
-        
-        tabBarController = UITabBarController()
-        
-        tabBarController.setViewControllers(tabs as [AnyObject], animated: false)
-        
-        self.window?.rootViewController = tabBarController
+        let userViewController: UserViewController = UserViewController()
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = userViewController
         
         self.window?.makeKeyAndVisible()
         
