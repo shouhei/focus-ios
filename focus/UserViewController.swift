@@ -8,10 +8,11 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class UserViewController: UIViewController, UITextFieldDelegate {
     
-    private let api_url_user_add = "http://focus.com/user/add"
+    private let api_url_user_add = "http://localhost:5000/user/"
     
     private let userModel = UserModel()
     private var nameTextField: UITextField!
@@ -25,6 +26,8 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         
         // 登録済みだったら次の画面に遷移
         if (isRegisterd()) {
+            println(userModel.getMe())
+            println(userModel.getToken())
             NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("goToNextView"), userInfo: nil, repeats: false)
         } else {
             // 未登録ならユーザー登録
@@ -80,15 +83,15 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         println(user)
     }
     
-    //TODO: ちゃんとかく
     func request_api(name:String, email:String, password:String) {
-        let param = ["name": name, "email": email, "password": password]
-        Alamofire.request(.GET, api_url_user_add, parameters: param)
-            .response { (request, response, data, error) in
-                println(request)
-                println(response)
-                println(error)
-        }
+        let param = ["name": name, "mail_address": email, "password": password]
+        Alamofire.request(.POST, api_url_user_add, parameters: param).responseJSON { (request, response, responseData, error) -> Void in
+            let data: AnyObject = responseData!
+            let results = JSON(data)
+            let token: String = results["response"]["token"].string!
+            self.userModel.setToken(token);
+         }
+        
     }
     
     func setRegisterButton() {
@@ -103,6 +106,14 @@ class UserViewController: UIViewController, UITextFieldDelegate {
     }
     
     func onClickRegisterButton(sender: UIButton) {
+        if (!checkifEmpty()) {
+            return showError("未入力の項目があります。")
+        }
+        
+        if (!checkIfEmailIsValid()) {
+            return showError("有効なメールアドレスを入力してください。")
+        }
+        
         if (!checkPassword()) {
             return showError("パスワードが一致しません。")
         }
@@ -122,6 +133,23 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         } else {
             return true
         }
+    }
+    
+    func checkifEmpty() -> Bool {
+        if (passwordTextField.text == "" || passwordVerifyTextField.text == "" || emailTextField.text == "" || nameTextField.text == "") {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func checkIfEmailIsValid() -> Bool {
+        let email = emailTextField.text
+        
+        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+        
+        let emailValidator = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailValidator.evaluateWithObject(email)
     }
     
     func showError(error_message: String) {
