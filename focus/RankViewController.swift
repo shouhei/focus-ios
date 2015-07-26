@@ -12,7 +12,7 @@ import UIKit
 
 class RankViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    let tableView = UITableView(frame: CGRectMake(0, 0, windowWidth(),windowHeight()))
+    let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -95,6 +95,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         var nowTime = NSDate()
         
+        println(nowTime)
+        
         //差分を計算
         tmp = nowTime.timeIntervalSinceDate(startTime)
         var timerInt = Int(tmp)

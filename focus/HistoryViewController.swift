@@ -9,13 +9,15 @@
 
 import UIKit
 import Alamofire
+import Alamofire
+import SwiftyJSON
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var placeItems: NSArray = ["daison","dada"]
     var timeItems: NSArray = ["1時間", "2時間"]
-    
+    var _json: JSON!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +31,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         barLabel.textAlignment = NSTextAlignment.Center
         barBg.addSubview(barLabel)
         
-//        Alamofire.request(.GET, "http://127.0.0.1:5000/example/migrateversion")
-//            .responseJSON {(request, response, JSON, error) in
-//                println(request)
-//                println(response)
-//                println(JSON)
-//        }
         
         tableView.registerClass(HistoryCell.self, forCellReuseIdentifier: "customCell")
         
@@ -65,10 +61,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        connection()
+        
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! HistoryCell
         
-        cell.placeLabel.text = self.placeItems[indexPath.row] as? String
-        cell.timeLabel.text = self.timeItems[indexPath.row] as? String
+        println(self._json["response"][indexPath.row]["spot"]["name"].string)
+        
+        cell.placeLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
+        cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
         
         var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
         
@@ -95,4 +95,23 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         println(indexPath.row)
     }
+    
+    
+    func connection() -> Void {
+        
+        Alamofire.request(.GET, "http://54.191.229.14/user/history/").responseJSON{ (request, response, data, error) in
+            
+            if (response?.statusCode == 200) {
+                
+                self._json = SwiftyJSON.JSON(data!)
+                
+            }else {
+                //TODO エラー処理
+                println(error)
+            }
+            
+        }
+        
+    }
+    
 }
