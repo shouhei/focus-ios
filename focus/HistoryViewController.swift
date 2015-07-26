@@ -89,7 +89,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
     
         let rankViewController: RankViewController = RankViewController()
-        rankViewController.setUpParameter(self.json["response"][indexPath.row]["spot"]["id"])
+        rankViewController.setUpParameter(self._json["response"][indexPath.row]["spot"]["id"].int!)
         rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         self.presentViewController(rankViewController, animated: true, completion: nil)
         println(indexPath.row)

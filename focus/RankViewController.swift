@@ -105,7 +105,7 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func setUpParamater(placeid: Int) {
+    func setUpParameter(placeid: Int) {
         
         self.placeId = placeid
         

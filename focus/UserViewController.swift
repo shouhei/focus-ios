@@ -65,9 +65,10 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         let secondTab: UIViewController = HistoryViewController()
         let thirdTab: UIViewController = TerritoryViewController()
         
-        firstTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Bookmarks, tag: 1)
-        secondTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.History, tag: 2)
-        thirdTab.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.TopRated, tag: 3)
+        firstTab.tabBarItem = UITabBarItem(title: "集中", image: UIImage(named: "pensil-icon"), selectedImage: UIImage(named: "pensil-icon"))
+        secondTab.tabBarItem = UITabBarItem(title: "履歴", image: UIImage(named: "document-icon"), selectedImage: UIImage(named: "document-icon"))
+            
+        thirdTab.tabBarItem = UITabBarItem(title: "勢力図", image: UIImage(named: "map-icon"), selectedImage: UIImage(named: "map-icon"))
         
         let tabs = NSArray(objects: firstTab, secondTab, thirdTab)
         
