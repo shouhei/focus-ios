@@ -9,18 +9,22 @@
 
 import UIKit
 import Alamofire
-import Alamofire
 import SwiftyJSON
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
-    var placeItems: NSArray = ["daison","dada"]
-    var timeItems: NSArray = ["1時間", "2時間"]
     var _json: JSON!
+    let histoyUrl: String = "http://54.191.229.14/users/history/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var token = UserModel().getToken()
+        
+        println(token)
+        
+        connection(token)
         
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
         barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
@@ -49,7 +53,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return placeItems.count
+        return _json["response"].count
     
     }
     
@@ -62,12 +66,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         println("1")
-        
-        var token = UserModel().getToken()
-        
-        println(token)
-        
-        connection(token)
         
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! HistoryCell
         
@@ -91,7 +89,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
     
         let rankViewController: RankViewController = RankViewController()
-//        rankViewController.setUpParameter()
+        rankViewController.setUpParameter(self.json["response"][indexPath.row]["spot"]["id"])
         rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         self.presentViewController(rankViewController, animated: true, completion: nil)
         println(indexPath.row)
@@ -108,8 +106,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func connection(token: String) -> Void {
         
         println("2")
+        var request = NSMutableURLRequest(URL:NSURL(string: histoyUrl)!, cachePolicy:.ReloadIgnoringLocalCacheData, timeoutInterval:4.0)
+        request.HTTPMethod = "GET"
+        request.addValue(token, forHTTPHeaderField: "Authorized_Token")
         
-        Alamofire.request(.GET, "http://54.191.229.14/users/", parameters: ["Authorized_Token": token]).responseJSON{ (request, response, data, error) in
+        Alamofire.request(request).responseJSON{ (request, response, data, error) in
             
             println("request")
             

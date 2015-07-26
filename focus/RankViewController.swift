@@ -9,15 +9,25 @@
 
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 class RankViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
+    var _json: JSON!
+    let rankUrl: String = "http://54.191.229.14//users/ranking/"
+    var placeId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        super.viewDidLoad()
+        var token = UserModel().getToken()
+        
+        println(token)
+        
+        connection(token)
         
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
         barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
@@ -27,6 +37,8 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         barLabel.textColor = UIColor.whiteColor()
         barLabel.textAlignment = NSTextAlignment.Center
         barBg.addSubview(barLabel)
+        
+        tableView.registerClass(RankCell.self, forCellReuseIdentifier: "customCell")
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -42,21 +54,61 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+
+        return _json["response"].count
+
     }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("CELL_ID") as? UITableViewCell
-        if(cell == nil)
-        {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL_ID")
-        }
+        println("1")
         
-        cell!.textLabel?.text = String(indexPath.row)
+        var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! RankCell
         
+        println(self._json["response"][indexPath.row]["spot"]["name"].string)
         
-        return cell!
+        cell.nameLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
+        cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
+        
+        var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
+        
+        let crownimage = UIImage(named: "crown")
+        
+        myImageView.image = crownimage
+        
+        cell.accessoryView = myImageView
+        
+        return cell
         
     }
+    
+    func connection(token: String) -> Void {
+        
+        println("2")
+//        var request = NSMutableURLRequest(URL:NSURL(string: rankUrl)!, cachePolicy:.ReloadIgnoringLocalCacheData, timeoutInterval:4.0)
+//        request.HTTPMethod = "GET"
+//        request.addValue(token, forHTTPHeaderField: "Authorized_Token")
+        
+        Alamofire.request(.GET, rankUrl, parameters: ["rankid": self.placeId]).responseJSON{ (request, response, data, error) in
+            
+            println("request")
+            
+            if (response?.statusCode == 200) {
+                
+                self._json = SwiftyJSON.JSON(data!)
+                
+            }else {
+                //TODO エラー処理
+                println(error)
+            }
+            
+        }
+        
+    }
+    
+    func setUpParamater(placeid: Int) {
+        
+        self.placeId = placeid
+        
+    }
+    
 }
