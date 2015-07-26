@@ -33,16 +33,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //UserDefaultの生成.
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+        
         // Do any additional setup after loading the view, typically from a nib.
+        
         //timerLabel
-        
-        timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
-        timerLabel.textColor = UIColor.whiteColor()
-        timerLabel.textAlignment = NSTextAlignment.Center
-        timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
-        
+        if (timerLabel == nil) {
+            timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+            timerLabel.textColor = UIColor.whiteColor()
+            timerLabel.textAlignment = NSTextAlignment.Center
+            timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
+        }
         
         //locationLabel
         
@@ -50,7 +51,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         locationLabel.textColor = UIColor.whiteColor()
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
-        
         
         //timerButton
         
@@ -84,20 +84,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterBackground:", name: "applicationWillEnterBackground", object: nil)
         
         let t = timerModel.get()
-        
-        println("aaaaaaa")
         if(t != nil) {
-            print(t)
             timerModel.delete()
             let start_time_str = t!["datetime"] as! String
             let start_time = self.stringToDate(start_time_str)
             let now = NSDate()
-            println(now)
             
-            //差分を計算
             let tmpa = now.timeIntervalSinceDate(start_time)
             var timerInt = Int(tmpa)
-            println(timerInt)
             
             let location: String = t!["place"]! as! String
             _location = location
@@ -116,34 +110,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
                 timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
                 
             } else {
-                
                 NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("goToResultView"), userInfo: nil, repeats: false)
-                timerLabel.text = "aaaaaaaaa"
             }
+        } else {
+            timerLabel.text = "集中する？"
         }
-        timerLabel.text = "集中する？"
         self.view.addSubview(timerButton)
         self.view.addSubview(timerLabel)
         self.view.backgroundColor = UIColorFromHex(0x00bfff)
     }
+    
     func willEnterBackground(notification: NSNotification?){
         self.save()
-        
     }
     
     func save() {
-        println("ViewController@save invoked.")
-        let date = NSDate()
+        let datetime = getNowString()
+        let start_time = dateToString(startTime)
         let place: String = locationLabel.text!
+        
+        timerModel.add(datetime, start_time: start_time, place: place, lat: lat, lng: lng)
+    }
+    
+    func getNowString() -> String {
+        return dateToString(NSDate())
+    }
+    
+    func dateToString(date:NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
-        let datetime:String = formatter.stringFromDate(date)
-        let start_time: String = formatter.stringFromDate(startTime)
-        timerModel.add(datetime, start_time: start_time, place: place, lat: lat, lng: lng)
-        println("here")
-        let t = timerModel.get()
-        println("aaa")
-        println(t)
+        return formatter.stringFromDate(date)
     }
     
     func stringToDate(date_str:String) -> NSDate {
@@ -182,15 +178,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         countNum++
         timerFormat(countNum)
     }
-    
-//    func timerFormat(countNum: Int) {
-//        let h = countNum / 3600
-//        let m = (countNum - h*3600) / 60
-//        let s = countNum % 60
-//        
-//        timerLabel.text = String(format: "%02d:%02d.%02d", h, m, s)
-//    }
-    
     
     func onTimerButtonClick(sender: UIButton){
         
