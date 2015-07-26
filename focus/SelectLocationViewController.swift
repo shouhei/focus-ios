@@ -39,6 +39,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         
         backButton.setImage(image, forState: UIControlState.Normal)
         backButton.frame = CGRectMake(5, 30, 30, 30)
+        
         barBg.addSubview(barLabel)
         
         self.view.addSubview(tableView)
@@ -75,6 +76,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     func backButtonTapped(Sender: UIButton) {
         
         delegate.backbutton()
+//        self.modalTransitionStyle = UIModalTransitionStyle.
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
@@ -102,7 +104,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
 }
 

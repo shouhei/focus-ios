@@ -18,6 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var timerLabel: UILabel!
     private var locationLabel: UILabel!
     private var countNum = 0
+    private var approachNum = 0
     private var timerRunning = false
     private var timer = NSTimer()
     private var lat: Double!
@@ -30,6 +31,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var startTime: NSDate!
     private var tmp: NSTimeInterval!
     var myUserDafault:NSUserDefaults = NSUserDefaults()
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    let myDevice: UIDevice = UIDevice.currentDevice()
+    private var startTime: NSDate!
+    private var tmp: NSTimeInterval!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +49,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
         }
+        backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+            UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!)
+        })
+        
+        
+        self.view.backgroundColor = UIColorFromHex(0x1253A4)
+        
+        //timerLabel
+        
+        timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+        timerLabel.textColor = UIColorFromHex(0xE9F2F9)
+        timerLabel.textAlignment = NSTextAlignment.Center
+        timerLabel.text = "集中する？"
+        timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
+        
         
         //locationLabel
         
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        locationLabel.textColor = UIColor.whiteColor()
+        locationLabel.textColor = UIColorFromHex(0x9CC4E4)
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
@@ -56,7 +76,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         timerButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
         timerButton.layer.cornerRadius = 20.0
-        timerButton.backgroundColor = UIColor.redColor()
+        timerButton.backgroundColor = UIColorFromHex(0xFFD464)
         timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 125)
         timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -72,11 +92,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             self.locationManager.requestAlwaysAuthorization()
         }
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 10
-        
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager?.distanceFilter = kCLDistanceFilterNone
         locationManager.startUpdatingLocation()
-        
         
         //addwindow
         self.view.addSubview(locationLabel)
@@ -164,13 +182,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     
     func timerFormat(timerint: Int) -> Void {
-        
         let h = timerint / 3600
         let m = timerint / 60
         let s = timerint % 60
         
         timerLabel.text = String(format: "%02d:%02d.%02d", h, m, s)
-        
     }
 
     
@@ -183,27 +199,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         if timerRunning == false {
             
-//            if self._location != nil{
                 timerButton.backgroundColor = UIColor.blueColor()
                 timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
              self.timerRunning = true
             myUserDafault.setBool(timerRunning, forKey: "timerRunning")
             
             
-//            }
         } else {
             //結果画面移行画面
             goToResultView()
-
-            //TODO: DB処理
-            
         }
         
-        var dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP")  // JPロケール
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"// フォーマットの指定
-        
-        println(dateFormatter.stringFromDate(NSDate()))
         
         //API処理
         Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
@@ -243,9 +249,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(String(stringInterpolationSegment: self.lat)),\(String(stringInterpolationSegment: self.lng))&client_id=ZBQVZ0XB5QSSEWODAWANQWIB51KNQTZBQVKIE0NYT435C1JT&client_secret=NNZB2RJAWHNQGE5WCFCWFYSWZILDZPJQ4JRW3ZHQEMJBLUSH&v=20150714"
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         
     }
     
@@ -267,6 +270,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     }
     
     func backbutton() {
+        
         self.timerRunning = false
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
         timerButton.backgroundColor = UIColor.redColor()
@@ -276,7 +280,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     func resetTimer() {
         
         locationLabel.text = ""
-        timerLabel.text = "集中する？"
+        timerLabel.text = ""
         timerRunning = false
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
         
@@ -286,13 +290,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         
         self.viewDidLoad()
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 

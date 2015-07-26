@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, CLLocationManagerDelegate, UIApplicationDelegate {
+    
+    var locationManager: CLLocationManager!
     var window: UIWindow?
     var myUserDafault:NSUserDefaults = NSUserDefaults()
     private var tabBarController: UITabBarController!
+    private var notification: UILocalNotification!
+    private var flag: Bool = false
+    private var approachTimer = NSTimer()
+    private var approachNum = 0
+    let myDevice: UIDevice = UIDevice.currentDevice()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+       
         
         println("launched")
         
@@ -26,12 +34,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         return true
+        
     }
+    
+    func approachTimerUpdate(){
+        approachNum++
+        
+//        if(approachNum == 15) {
+//            println("離れました")
+//        }
+        
+    }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        println("will resign active")
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -73,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        println("will enter fore")
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -83,9 +100,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        println("will terminate")
     }
 
+    
+        func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    
+            var alert = UIAlertView();
+            alert.title = "focus!!!!";
+            alert.message = notification.alertBody;
+            alert.addButtonWithTitle(notification.alertAction!);
+            alert.show();
+            UIApplication.sharedApplication().cancelAllLocalNotifications();
+        }
 
+    
 }
+
 
