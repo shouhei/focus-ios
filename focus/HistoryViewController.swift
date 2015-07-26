@@ -61,7 +61,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        connection()
+        println("1")
+        
+        var token = UserModel().getToken()
+        
+        println(token)
+        
+        connection(token)
         
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! HistoryCell
         
@@ -93,13 +99,19 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    
         println(indexPath.row)
+    
     }
     
     
-    func connection() -> Void {
+    func connection(token: String) -> Void {
         
-        Alamofire.request(.GET, "http://54.191.229.14/user/history/").responseJSON{ (request, response, data, error) in
+        println("2")
+        
+        Alamofire.request(.GET, "http://54.191.229.14/users/", parameters: ["Authorized_Token": token]).responseJSON{ (request, response, data, error) in
+            
+            println("request")
             
             if (response?.statusCode == 200) {
                 
