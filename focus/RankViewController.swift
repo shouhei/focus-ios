@@ -17,6 +17,23 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        super.viewDidLoad()
+        
+        let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
+        barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
+        
+        barLabel.text = "ランキング"
+        barLabel.textColor = UIColor.whiteColor()
+        barLabel.textAlignment = NSTextAlignment.Center
+        barBg.addSubview(barLabel)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        self.view.addSubview(tableView)
+        self.view.addSubview(barBg)
+        
     }
     
     override func didReceiveMemoryWarning() {

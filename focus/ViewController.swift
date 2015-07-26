@@ -97,8 +97,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         //差分を計算
         tmp = nowTime.timeIntervalSinceDate(startTime)
-        println(tmp)
         var timerInt = Int(tmp)
+        
         timerFormat(timerInt)
         
     }
@@ -187,8 +187,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     }
     
     func backbutton() {
+        
         self.timerRunning = false
         viewDidLoad()
+        
     }
     
     func resetTimer() {
@@ -200,6 +202,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timer.invalidate()
         
         self.viewDidLoad()
+        
     }
     
     override func didReceiveMemoryWarning() {

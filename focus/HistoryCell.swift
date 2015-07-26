@@ -8,18 +8,43 @@
 
 import UIKit
 
-class HistroryCell: UIViewController{
+class HistoryCell:  UITableViewCell{
     
-    let tableView = UITableView(frame: CGRectMake(0, 0, windowWidth(),windowHeight()))
+    var placeLabel = UILabel()
+    var timeLabel = UILabel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!)
+    {
+        
+        //First Call Super
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        placeLabel = UILabel(frame: CGRectMake(10, 20, 300, 15));
+        placeLabel.text = "";
+        placeLabel.font = UIFont.systemFontOfSize(20)
+        self.addSubview(placeLabel);
+        
+        timeLabel = UILabel(frame: CGRectMake(150, 20, 300, 15));
+        timeLabel.text = "";
+        timeLabel.font = UIFont.systemFontOfSize(22)
+        self.addSubview(timeLabel);
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    required init(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
     }
     
 }
