@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class UserViewController: UIViewController, UITextFieldDelegate {
     
-    private let api_url_user_add = "http://localhost:5000/user/"
+    private let api_url_user_add = "http://54.191.229.14/user/"
     
     private let userModel = UserModel()
     private var nameTextField: UITextField!
