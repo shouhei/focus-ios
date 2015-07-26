@@ -18,25 +18,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var timerLabel: UILabel!
     private var locationLabel: UILabel!
     private var countNum = 0
+    private var approachNum = 0
     private var timerRunning = false
     private var timer = NSTimer()
+    private var approachTimer = NSTimer()
     private var lat: Double!
     private var lng: Double!
     private var date: String!
     private var foursquareUrl: String!
     private var json: JSON!
     private var _location: String!
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    let myDevice: UIDevice = UIDevice.currentDevice()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.view.backgroundColor = UIColorFromHex(0x00bfff)
+        backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+            UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!)
+        })
+        
+        self.view.backgroundColor = UIColorFromHex(0x1253A4)
         
         //timerLabel
         
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
-        timerLabel.textColor = UIColor.whiteColor()
+        timerLabel.textColor = UIColorFromHex(0xE9F2F9)
         timerLabel.textAlignment = NSTextAlignment.Center
         timerLabel.text = "集中する？"
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
@@ -45,7 +54,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //locationLabel
         
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        locationLabel.textColor = UIColor.whiteColor()
+        locationLabel.textColor = UIColorFromHex(0x9CC4E4)
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
@@ -54,7 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         timerButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
         timerButton.layer.cornerRadius = 20.0
-        timerButton.backgroundColor = UIColor.redColor()
+        timerButton.backgroundColor = UIColorFromHex(0xFFD464)
         timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 125)
         timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -70,11 +79,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             self.locationManager.requestAlwaysAuthorization()
         }
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 10
-        
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager?.distanceFilter = kCLDistanceFilterNone
         locationManager.startUpdatingLocation()
-        
         
         //addwindow
         self.view.addSubview(timerButton)
@@ -82,10 +89,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
     }
     
-    func update() {
+    func timerUpdate() {
         countNum++
         timerFormat(countNum)
     }
+    
     
     func timerFormat(countNum: Int) {
         let h = countNum / 3600
@@ -100,14 +108,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         if timerRunning == false {
             
-//            if self._location != nil{
                 timerButton.backgroundColor = UIColor.blueColor()
                 timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
              self.timerRunning = true
             
-//            }
         } else {
-            //結果画面移行画面
+            //結果画面移行
             let resultViewController: ResultViewController = ResultViewController()
             resultViewController.setUpParameter(_location, timer: countNum)
             self.presentViewController(resultViewController, animated: true, completion: nil)
@@ -154,9 +160,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(String(stringInterpolationSegment: self.lat)),\(String(stringInterpolationSegment: self.lng))&client_id=ZBQVZ0XB5QSSEWODAWANQWIB51KNQTZBQVKIE0NYT435C1JT&client_secret=NNZB2RJAWHNQGE5WCFCWFYSWZILDZPJQ4JRW3ZHQEMJBLUSH&v=20150714"
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         
     }
     
@@ -172,21 +175,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         self._location = locationName
         locationLabel.text = self._location
         self.view.addSubview(locationLabel)
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
         
     }
     
     func backbutton() {
         self.timerRunning = false
-        timerButton.backgroundColor = UIColor.redColor()
-        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
+        viewDidLoad()
     }
     
     func resetTimer() {
         
         locationLabel.text = ""
-        timerLabel.text = "集中する？"
+        timerLabel.text = ""
         timerRunning = false
+        countNum = 0
         timer.invalidate()
         
         self.viewDidLoad()
@@ -196,7 +199,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
