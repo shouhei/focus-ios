@@ -21,7 +21,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var approachNum = 0
     private var timerRunning = false
     private var timer = NSTimer()
-    private var approachTimer = NSTimer()
     private var lat: Double!
     private var lng: Double!
     private var date: String!
@@ -30,7 +29,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var _location: String!
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     let myDevice: UIDevice = UIDevice.currentDevice()
-    
+    private var startTime: NSDate!
+    private var tmp: NSTimeInterval!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
             UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!)
         })
+        
         
         self.view.backgroundColor = UIColorFromHex(0x1253A4)
         
@@ -91,16 +92,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     func timerUpdate() {
         countNum++
-        timerFormat(countNum)
+        
+        var nowTime = NSDate()
+        
+        //差分を計算
+        tmp = nowTime.timeIntervalSinceDate(startTime)
+        println(tmp)
+        var timerInt = Int(tmp)
+        timerFormat(timerInt)
+        
     }
     
     
-    func timerFormat(countNum: Int) {
-        let h = countNum / 3600
-        let m = (countNum - h*3600) / 60
-        let s = countNum % 60
+    func timerFormat(timerint: Int) -> Void {
+    
+        let h = timerint / 3600
+        let m = timerint / 60
+        let s = timerint % 60
         
         timerLabel.text = String(format: "%02d:%02d.%02d", h, m, s)
+    
     }
     
     
@@ -123,11 +134,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             
         }
         
-        var dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP")  // JPロケール
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"// フォーマットの指定
-        
-        println(dateFormatter.stringFromDate(NSDate()))
         
         //API処理
         Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
@@ -175,6 +181,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         self._location = locationName
         locationLabel.text = self._location
         self.view.addSubview(locationLabel)
+        startTime = NSDate()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
         
     }
