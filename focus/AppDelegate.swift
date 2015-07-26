@@ -79,15 +79,15 @@ class AppDelegate: UIResponder, CLLocationManagerDelegate, UIApplicationDelegate
         NSNotificationCenter.defaultCenter().postNotificationName("applicationWillEnterBackground", object: nil)
     }
     
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        
-        var alert = UIAlertView();
-        alert.title = "ほげ";
-        alert.message = notification.alertBody;
-        alert.addButtonWithTitle(notification.alertAction!);
-        alert.show();
-        
-    }
+//    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+//        
+//        var alert = UIAlertView();
+//        alert.title = "ほげ";
+//        alert.message = notification.alertBody;
+//        alert.addButtonWithTitle(notification.alertAction!);
+//        alert.show();
+//        
+//    }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
@@ -103,15 +103,15 @@ class AppDelegate: UIResponder, CLLocationManagerDelegate, UIApplicationDelegate
     }
 
     
-        func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-    
-            var alert = UIAlertView();
-            alert.title = "focus!!!!";
-            alert.message = notification.alertBody;
-            alert.addButtonWithTitle(notification.alertAction!);
-            alert.show();
-            UIApplication.sharedApplication().cancelAllLocalNotifications();
-        }
+//        func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+//    
+//            var alert = UIAlertView();
+//            alert.title = "focus!!!!";
+//            alert.message = notification.alertBody;
+//            alert.addButtonWithTitle(notification.alertAction!);
+//            alert.show();
+//            UIApplication.sharedApplication().cancelAllLocalNotifications();
+//        }
 
     
 }

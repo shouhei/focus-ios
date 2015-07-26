@@ -33,8 +33,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     var myUserDafault:NSUserDefaults = NSUserDefaults()
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     let myDevice: UIDevice = UIDevice.currentDevice()
-    private var startTime: NSDate!
-    private var tmp: NSTimeInterval!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +59,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
         timerLabel.textColor = UIColorFromHex(0xE9F2F9)
         timerLabel.textAlignment = NSTextAlignment.Center
-        timerLabel.text = "集中する？"
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
         
         
