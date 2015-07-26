@@ -27,6 +27,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var foursquareUrl: String!
     private var json: JSON!
     private var _location: String!
+    private var timerModel = TimerModel()
+    private var startTime: NSDate!
+    private var tmp: NSTimeInterval!
+    var myUserDafault:NSUserDefaults = NSUserDefaults()
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     let myDevice: UIDevice = UIDevice.currentDevice()
     private var startTime: NSDate!
@@ -34,8 +38,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+        
         // Do any additional setup after loading the view, typically from a nib.
         
+        //timerLabel
+        if (timerLabel == nil) {
+            timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+            timerLabel.textColor = UIColor.whiteColor()
+            timerLabel.textAlignment = NSTextAlignment.Center
+            timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
+        }
         backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
             UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!)
         })
@@ -58,7 +71,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         locationLabel.textColor = UIColorFromHex(0x9CC4E4)
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
-        
         
         //timerButton
         
@@ -85,9 +97,75 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         locationManager.startUpdatingLocation()
         
         //addwindow
+        self.view.addSubview(locationLabel)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterBackground:", name: "applicationWillEnterBackground", object: nil)
+        
+        let t = timerModel.get()
+        if(t != nil) {
+            timerModel.delete()
+            let start_time_str = t!["datetime"] as! String
+            let start_time = self.stringToDate(start_time_str)
+            let now = NSDate()
+            
+            let tmpa = now.timeIntervalSinceDate(start_time)
+            var timerInt = Int(tmpa)
+            
+            let location: String = t!["place"]! as! String
+            _location = location
+            startTime = stringToDate(t!["start_time"] as! String)
+            var nowTime = NSDate()
+            //差分を計算
+            tmp = nowTime.timeIntervalSinceDate(startTime)
+            
+            if (timerInt <= 10) {
+                //つづきから
+                
+                locationLabel.text = location
+                timerRunning = true
+                myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+                
+                timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
+                
+            } else {
+                NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("goToResultView"), userInfo: nil, repeats: false)
+            }
+        } else {
+            timerLabel.text = "集中する？"
+        }
         self.view.addSubview(timerButton)
         self.view.addSubview(timerLabel)
+        self.view.backgroundColor = UIColorFromHex(0x00bfff)
+    }
+    
+    func willEnterBackground(notification: NSNotification?){
+        self.save()
+    }
+    
+    func save() {
+        let datetime = getNowString()
+        let start_time = dateToString(startTime)
+        let place: String = locationLabel.text!
         
+        timerModel.add(datetime, start_time: start_time, place: place, lat: lat, lng: lng)
+    }
+    
+    func getNowString() -> String {
+        return dateToString(NSDate())
+    }
+    
+    func dateToString(date:NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
+        return formatter.stringFromDate(date)
+    }
+    
+    func stringToDate(date_str:String) -> NSDate {
+        var date_formatter: NSDateFormatter = NSDateFormatter()
+        date_formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        var date:NSDate = date_formatter.dateFromString(date_str)!
+        date_formatter.stringFromDate(date)
+        return date
     }
     
     func timerUpdate() {
@@ -95,27 +173,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         var nowTime = NSDate()
         
-        println(nowTime)
-        
         //差分を計算
         tmp = nowTime.timeIntervalSinceDate(startTime)
         var timerInt = Int(tmp)
-        
         timerFormat(timerInt)
         
     }
     
     
     func timerFormat(timerint: Int) -> Void {
-    
         let h = timerint / 3600
         let m = timerint / 60
         let s = timerint % 60
         
         timerLabel.text = String(format: "%02d:%02d.%02d", h, m, s)
-    
     }
+
     
+    func update() {
+        countNum++
+        timerFormat(countNum)
+    }
     
     func onTimerButtonClick(sender: UIButton){
         
@@ -124,16 +202,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
                 timerButton.backgroundColor = UIColor.blueColor()
                 timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
              self.timerRunning = true
+            myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+            
             
         } else {
-            //結果画面移行
-            let resultViewController: ResultViewController = ResultViewController()
-            resultViewController.setUpParameter(_location, timer: countNum)
-            self.presentViewController(resultViewController, animated: true, completion: nil)
-            resultViewController.delegate = self
-
-            //TODO: DB処理
-            
+            //結果画面移行画面
+            goToResultView()
         }
         
         
@@ -156,6 +230,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             
         }
         
+    }
+    
+    func goToResultView() {
+        let resultViewController: ResultViewController = ResultViewController()
+        resultViewController.setUpParameter(_location, timer: Int(tmp))
+        self.presentViewController(resultViewController, animated: true, completion: nil)
+        resultViewController.delegate = self
     }
     
     func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [AnyObject]!){
@@ -182,7 +263,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         self._location = locationName
         locationLabel.text = self._location
-        self.view.addSubview(locationLabel)
+//        self.view.addSubview(locationLabel)
         startTime = NSDate()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
         
@@ -191,8 +272,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     func backbutton() {
         
         self.timerRunning = false
-        viewDidLoad()
-        
+        myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+        timerButton.backgroundColor = UIColor.redColor()
+        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
     }
     
     func resetTimer() {
@@ -200,8 +282,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         locationLabel.text = ""
         timerLabel.text = ""
         timerRunning = false
-        countNum = 0
+        myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+        
         timer.invalidate()
+        
+        tmp = 0
+        
         
         self.viewDidLoad()
         
