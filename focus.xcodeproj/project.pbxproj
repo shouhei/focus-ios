@@ -511,6 +511,7 @@
 			baseConfigurationReference = 06DDDEFE7067243028B0C043 /* Pods-focus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = focus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
