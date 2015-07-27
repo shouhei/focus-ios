@@ -7,12 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59882F6A1B5E04CD00D148A0 /* AloeEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F661B5E04CD00D148A0 /* AloeEase.swift */; };
+		59882F6B1B5E04CD00D148A0 /* AloeTween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F671B5E04CD00D148A0 /* AloeTween.swift */; };
+		59882F6C1B5E04CD00D148A0 /* AloeTweenChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F681B5E04CD00D148A0 /* AloeTweenChain.swift */; };
+		59882F6D1B5E04CD00D148A0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F691B5E04CD00D148A0 /* BaseViewController.swift */; };
+		59882F6F1B5E053700D148A0 /* AppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F6E1B5E053700D148A0 /* AppUtil.swift */; };
+		59882F831B5E0C8200D148A0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F821B5E0C8200D148A0 /* UserModel.swift */; };
+		59882F851B5E0E9000D148A0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59882F841B5E0E9000D148A0 /* UserViewController.swift */; };
+		599496DE1B5D781C0043A62B /* SwiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599496DD1B5D781C0043A62B /* SwiftData.swift */; };
+		59FE43DE1B64B3CC00C7AC5D /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FE43DD1B64B3CC00C7AC5D /* TimerModel.swift */; };
+		652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9ED91B5A938A008238C9 /* RankViewController.swift */; };
+		652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */; };
+		653F932F1B64B8D400BB8118 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F932E1B64B8D400BB8118 /* HistoryCell.swift */; };
+		6556FCCB1B65707C00C4156B /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556FCCA1B65707C00C4156B /* RankCell.swift */; };
+		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
+		65C169B41B593A6900FCFEC4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */; };
+		65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */; };
+		65C169BB1B5A7FE900FCFEC4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */; };
 		BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709991B4B8A7D00303C78 /* AppDelegate.swift */; };
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
 		BA6709A11B4B8A7D00303C78 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA6709A01B4B8A7D00303C78 /* Images.xcassets */; };
 		BA6709A41B4B8A7D00303C78 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */; };
 		BA6709B01B4B8A7D00303C78 /* focusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709AF1B4B8A7D00303C78 /* focusTests.swift */; };
+		D6558CC9D0D892BD7885BB8B /* Pods_focus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B0FC869251437E7E3DA958 /* Pods_focus.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +44,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06B0FC869251437E7E3DA958 /* Pods_focus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_focus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		06DDDEFE7067243028B0C043 /* Pods-focus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-focus.release.xcconfig"; path = "Pods/Target Support Files/Pods-focus/Pods-focus.release.xcconfig"; sourceTree = "<group>"; };
+		59882F661B5E04CD00D148A0 /* AloeEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeEase.swift; sourceTree = "<group>"; };
+		59882F671B5E04CD00D148A0 /* AloeTween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTween.swift; sourceTree = "<group>"; };
+		59882F681B5E04CD00D148A0 /* AloeTweenChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTweenChain.swift; sourceTree = "<group>"; };
+		59882F691B5E04CD00D148A0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		59882F6E1B5E053700D148A0 /* AppUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtil.swift; sourceTree = "<group>"; };
+		59882F821B5E0C8200D148A0 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		59882F841B5E0E9000D148A0 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		599496DD1B5D781C0043A62B /* SwiftData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftData.swift; sourceTree = "<group>"; };
+		59FE43DD1B64B3CC00C7AC5D /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		652F9ED91B5A938A008238C9 /* RankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
+		652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
+		653F932E1B64B8D400BB8118 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		6556FCCA1B65707C00C4156B /* RankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankCell.swift; path = ../model/RankCell.swift; sourceTree = "<group>"; };
+		65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
+		65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		65C169B71B593B3800FCFEC4 /* Briding-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Briding-Header.h"; sourceTree = "<group>"; };
+		65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultViewController.swift; path = ../ResultViewController.swift; sourceTree = "<group>"; };
+		65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		BA6709941B4B8A7D00303C78 /* focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709981B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709991B4B8A7D00303C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +74,7 @@
 		BA6709A91B4B8A7D00303C78 /* focusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = focusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709AE1B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709AF1B4B8A7D00303C78 /* focusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = focusTests.swift; sourceTree = "<group>"; };
+		E10C30A4252BF97BB6DC10A7 /* Pods-focus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-focus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-focus/Pods-focus.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C169B41B593A6900FCFEC4 /* libsqlite3.dylib in Frameworks */,
+				D6558CC9D0D892BD7885BB8B /* Pods_focus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +97,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D7940692B22A308B92B6858 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				599496DD1B5D781C0043A62B /* SwiftData.swift */,
+				65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */,
+				65C169B71B593B3800FCFEC4 /* Briding-Header.h */,
+				06B0FC869251437E7E3DA958 /* Pods_focus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59882F641B5E04CD00D148A0 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				59882F651B5E04CD00D148A0 /* animation */,
+				59882F691B5E04CD00D148A0 /* BaseViewController.swift */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		59882F651B5E04CD00D148A0 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				59882F6E1B5E053700D148A0 /* AppUtil.swift */,
+				59882F661B5E04CD00D148A0 /* AloeEase.swift */,
+				59882F671B5E04CD00D148A0 /* AloeTween.swift */,
+				59882F681B5E04CD00D148A0 /* AloeTweenChain.swift */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
+		65AF7C8C1B5699AB00543970 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				59882F821B5E0C8200D148A0 /* UserModel.swift */,
+				59FE43DD1B64B3CC00C7AC5D /* TimerModel.swift */,
+			);
+			name = model;
+			path = ../model;
+			sourceTree = "<group>";
+		};
+		69F6F3E6FE9B7270791E8349 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E10C30A4252BF97BB6DC10A7 /* Pods-focus.debug.xcconfig */,
+				06DDDEFE7067243028B0C043 /* Pods-focus.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BA67098B1B4B8A7C00303C78 = {
 			isa = PBXGroup;
 			children = (
+				59882F641B5E04CD00D148A0 /* libs */,
 				BA6709961B4B8A7D00303C78 /* focus */,
-				BA6709AC1B4B8A7D00303C78 /* focusTests */,
 				BA6709951B4B8A7D00303C78 /* Products */,
+				69F6F3E6FE9B7270791E8349 /* Pods */,
+				1D7940692B22A308B92B6858 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,12 +170,22 @@
 		BA6709961B4B8A7D00303C78 /* focus */ = {
 			isa = PBXGroup;
 			children = (
+				65AF7C8C1B5699AB00543970 /* model */,
 				BA6709991B4B8A7D00303C78 /* AppDelegate.swift */,
 				BA67099B1B4B8A7D00303C78 /* ViewController.swift */,
+				59882F841B5E0E9000D148A0 /* UserViewController.swift */,
+				65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */,
+				65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */,
+				65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */,
+				653F932E1B64B8D400BB8118 /* HistoryCell.swift */,
+				652F9ED91B5A938A008238C9 /* RankViewController.swift */,
+				6556FCCA1B65707C00C4156B /* RankCell.swift */,
+				652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */,
 				BA67099D1B4B8A7D00303C78 /* Main.storyboard */,
 				BA6709A01B4B8A7D00303C78 /* Images.xcassets */,
 				BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */,
 				BA6709971B4B8A7D00303C78 /* Supporting Files */,
+				BA6709AC1B4B8A7D00303C78 /* focusTests */,
 			);
 			path = focus;
 			sourceTree = "<group>";
@@ -102,7 +205,7 @@
 				BA6709AD1B4B8A7D00303C78 /* Supporting Files */,
 			);
 			path = focusTests;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		BA6709AD1B4B8A7D00303C78 /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -119,9 +222,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA6709B31B4B8A7D00303C78 /* Build configuration list for PBXNativeTarget "focus" */;
 			buildPhases = (
+				1E66B636A1FE7E3392C476EE /* Check Pods Manifest.lock */,
 				BA6709901B4B8A7C00303C78 /* Sources */,
 				BA6709911B4B8A7C00303C78 /* Frameworks */,
 				BA6709921B4B8A7C00303C78 /* Resources */,
+				E24F8EE36B97940DEFAC6632 /* Embed Pods Frameworks */,
+				363900CF6F9218771427BF10 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -161,6 +267,11 @@
 				TargetAttributes = {
 					BA6709931B4B8A7C00303C78 = {
 						CreatedOnToolsVersion = 6.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					BA6709A81B4B8A7D00303C78 = {
 						CreatedOnToolsVersion = 6.3;
@@ -207,13 +318,77 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1E66B636A1FE7E3392C476EE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		363900CF6F9218771427BF10 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-focus/Pods-focus-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E24F8EE36B97940DEFAC6632 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-focus/Pods-focus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BA6709901B4B8A7C00303C78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59882F6B1B5E04CD00D148A0 /* AloeTween.swift in Sources */,
+				59882F851B5E0E9000D148A0 /* UserViewController.swift in Sources */,
+				65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */,
+				652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */,
+				652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */,
+				599496DE1B5D781C0043A62B /* SwiftData.swift in Sources */,
+				59882F6D1B5E04CD00D148A0 /* BaseViewController.swift in Sources */,
 				BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */,
+				59882F6F1B5E053700D148A0 /* AppUtil.swift in Sources */,
+				59882F831B5E0C8200D148A0 /* UserModel.swift in Sources */,
+				65C169BB1B5A7FE900FCFEC4 /* HistoryViewController.swift in Sources */,
+				59882F6A1B5E04CD00D148A0 /* AloeEase.swift in Sources */,
+				653F932F1B64B8D400BB8118 /* HistoryCell.swift in Sources */,
+				65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */,
+				59FE43DE1B64B3CC00C7AC5D /* TimerModel.swift in Sources */,
+				59882F6C1B5E04CD00D148A0 /* AloeTweenChain.swift in Sources */,
 				BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */,
+				6556FCCB1B65707C00C4156B /* RankCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,21 +513,26 @@
 		};
 		BA6709B41B4B8A7D00303C78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E10C30A4252BF97BB6DC10A7 /* Pods-focus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = focus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Briding-Header.h";
 			};
 			name = Debug;
 		};
 		BA6709B51B4B8A7D00303C78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06DDDEFE7067243028B0C043 /* Pods-focus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = focus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Briding-Header.h";
 			};
 			name = Release;
 		};
@@ -409,6 +589,7 @@
 				BA6709B51B4B8A7D00303C78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BA6709B61B4B8A7D00303C78 /* Build configuration list for PBXNativeTarget "focusTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +598,7 @@
 				BA6709B81B4B8A7D00303C78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
