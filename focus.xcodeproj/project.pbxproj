@@ -18,11 +18,6 @@
 		59FE43DE1B64B3CC00C7AC5D /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FE43DD1B64B3CC00C7AC5D /* TimerModel.swift */; };
 		652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9ED91B5A938A008238C9 /* RankViewController.swift */; };
 		652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */; };
-		653D6A511B4D5B56005EB0A0 /* AloeEase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4C1B4D5B56005EB0A0 /* AloeEase.swift */; };
-		653D6A521B4D5B56005EB0A0 /* AloeTween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4D1B4D5B56005EB0A0 /* AloeTween.swift */; };
-		653D6A531B4D5B56005EB0A0 /* AloeTweenChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */; };
-		653D6A541B4D5B56005EB0A0 /* AppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */; };
-		653D6A551B4D5B56005EB0A0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */; };
 		653F932F1B64B8D400BB8118 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F932E1B64B8D400BB8118 /* HistoryCell.swift */; };
 		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
 		65C169B41B593A6900FCFEC4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */; };
@@ -61,11 +56,6 @@
 		59FE43DD1B64B3CC00C7AC5D /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		652F9ED91B5A938A008238C9 /* RankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
 		652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
-		653D6A4C1B4D5B56005EB0A0 /* AloeEase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeEase.swift; sourceTree = "<group>"; };
-		653D6A4D1B4D5B56005EB0A0 /* AloeTween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTween.swift; sourceTree = "<group>"; };
-		653D6A4E1B4D5B56005EB0A0 /* AloeTweenChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeTweenChain.swift; sourceTree = "<group>"; };
-		653D6A4F1B4D5B56005EB0A0 /* AppUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtil.swift; sourceTree = "<group>"; };
-		653D6A501B4D5B56005EB0A0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		653F932E1B64B8D400BB8118 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
 		65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
