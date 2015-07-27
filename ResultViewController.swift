@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 protocol ResultDelegate{
     
@@ -17,11 +18,17 @@ class ResultViewController: UIViewController {
     
     private var locationLabel: UILabel!
     private var timerLabel: UILabel!
+    private var rankLabel: UILabel!
     private var messageLabel: UILabel!
     private var _location: String!
     private var _timer: Int!
+    private var _rank: Int!
     private var againButton: UIButton!
+    private var myTwitterButton: UIButton!
+
+    private var myComposeView : SLComposeViewController!
     var delegate: ResultDelegate!
+    private let userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +56,14 @@ class ResultViewController: UIViewController {
         messageLabel.text = "集中しました！"
         messageLabel.textAlignment = NSTextAlignment.Center
         messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
+
+        //ranklabel
+
+        rankLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+        rankLabel.textColor = UIColor.whiteColor()
+        rankLabel.text = "現在\(_rank!.description)位です！"
+        rankLabel.textAlignment = NSTextAlignment.Center
+        rankLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 + 50)
         
         //againButton
         
@@ -56,31 +71,64 @@ class ResultViewController: UIViewController {
         againButton.layer.cornerRadius = 20.0
         againButton.backgroundColor = UIColor.orangeColor()
         againButton.setTitle("もう一度？", forState: UIControlState.Normal)
-        againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 55)
+        againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 105)
         
         againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
+
+
+        myTwitterButton = UIButton()
+        myTwitterButton.frame = CGRectMake(0,0,50,50)
+        myTwitterButton.setImage(UIImage(named: "twitter_logo"), forState: .Normal)
+        myTwitterButton.setTitle("Twitter", forState: UIControlState.Normal)
+        myTwitterButton.layer.position = CGPoint(x: windowWidth()/2 - 50, y: windowHeight()/2 + 210)
+        myTwitterButton.addTarget(self, action: "postToTwitter:", forControlEvents: .TouchUpInside)
+
+        // buttonをviewに追加.
+        self.view.addSubview(myTwitterButton)
+
         timerLabel.text = "\(_timer)秒"
         locationLabel.text = "\(_location)で"
         
         self.view.addSubview(timerLabel)
+        self.view.addSubview(rankLabel)
         self.view.addSubview(locationLabel)
         self.view.addSubview(messageLabel)
         self.view.addSubview(againButton)
         
     }
     
-    func setUpParameter(location: String?, timer: Int?) {
-        
+    func setUpParameter(location: String?, timer: Int?, rank: Int?) {
+
+        println("glamar")
+        println(location)
+        println(timer)
+        println(rank)
         self._location = location
         self._timer = timer
-        
+        self._rank = rank
+
+//        setLabel()
+
+        println("aa")
+        println(_rank.description)
         println(_location)
         println(_timer)
-        
     }
-    
+
+    func postToTwitter(sender : AnyObject) {
+
+        // SLComposeViewControllerのインスタンス化.
+        // ServiceTypeをTwitterに指定.
+        myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+
+        // 投稿するテキストを指定.
+        myComposeView.setInitialText("\(userModel.getName())さんは\(_location)で\(_timer)秒集中しました！ #FOCUS")
+
+        // myComposeViewの画面遷移.
+        self.presentViewController(myComposeView, animated: true, completion: nil)
+    }
+
+
     func onAgainButtonClick(sender: UIButton){
         
         self.dismissViewControllerAnimated(true, completion: nil)

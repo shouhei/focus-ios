@@ -27,6 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var foursquareUrl: String!
     private var json: JSON!
     private var _location: String!
+    private var _rank: Int!
     private var _locationId: String!
     private var timerModel = TimerModel()
     private var startTime: NSDate!
@@ -69,7 +70,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //locationLabel
         
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        locationLabel.textColor = UIColorFromHex(0x9CC4E4)
+        locationLabel.textColor = UIColor.whiteColor()
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
@@ -206,8 +207,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         } else {
             //API
             requestApiEnd()
-            //結果画面移行画面
-            goToResultView()
         }
         
         
@@ -279,6 +278,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             if (response?.statusCode == 200) {
                 let results = SwiftyJSON.JSON(responseData!)
                 println(results)
+
+                println("ランキング")
+                println(results["response"]["rank"])
+
+                self._rank = results["response"]["rank"].intValue
+                println("hogehogehoge")
+                self.goToResultView()
             }else {
                 println(request.allHTTPHeaderFields)
                 println(error)
@@ -290,9 +296,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     }
     
     func goToResultView() {
+        println("goresutl")
+        println(_location)
+        println(Int(tmp))
+        println(223)
         let resultViewController: ResultViewController = ResultViewController()
-        resultViewController.setUpParameter(_location, timer: Int(tmp))
+        println(224)
+        resultViewController.setUpParameter(_location, timer: Int(tmp), rank: _rank)
+        println(225)
         self.presentViewController(resultViewController, animated: true, completion: nil)
+        println(226)
         resultViewController.delegate = self
     }
     
