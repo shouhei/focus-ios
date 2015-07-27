@@ -10,7 +10,7 @@ import SwiftyJSON
 
 protocol SelectLocationDelegate{
     
-    func locationSelect(locationName: String)
+    func locationSelect(locationName: String, locationId: String)
     func backbutton()
     
 }
@@ -84,10 +84,11 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         var location: String = self._json["response"]["venues"][indexPath.row]["name"].string!
+        var id: String = self._json["response"]["venues"][indexPath.row]["id"].string!
         
         println(location)
         
-        delegate.locationSelect(location)
+        delegate.locationSelect(location, locationId: id)
         
         self.dismissViewControllerAnimated(true, completion: nil)
         

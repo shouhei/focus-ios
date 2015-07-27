@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class UserViewController: UIViewController, UITextFieldDelegate {
     
-    private let api_url_user_add = "http://54.191.229.14/user/"
+    private let api_url_user_add = "http://54.191.229.14/users/"
     
     private let userModel = UserModel()
     private var nameTextField: UITextField!
@@ -85,11 +85,24 @@ class UserViewController: UIViewController, UITextFieldDelegate {
     }
     
     func request_api(name:String, email:String, password:String) {
+        println(name)
+        println(email)
+        println(password)
+        println(1)
         let param = ["name": name, "mail_address": email, "password": password]
         Alamofire.request(.POST, api_url_user_add, parameters: param).responseJSON { (request, response, responseData, error) -> Void in
-            let data: AnyObject = responseData!
-            let results = JSON(data)
+            println(2)
+//            println(re)
+//            let data: AnyObject = responseData!
+//            println(data)
+            println(request)
+            println(response)
+            println(responseData)
+            println(3)
+            let results = SwiftyJSON.JSON(responseData!)
+            println(results)
             let token: String = results["response"]["token"].string!
+            println(token)
             self.userModel.setToken(token);
          }
         

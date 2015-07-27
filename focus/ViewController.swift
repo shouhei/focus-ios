@@ -27,12 +27,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var foursquareUrl: String!
     private var json: JSON!
     private var _location: String!
+    private var _locationId: String!
     private var timerModel = TimerModel()
     private var startTime: NSDate!
     private var tmp: NSTimeInterval!
+    private let api_url_timer_start = "http://54.191.229.14/timerstart/"
+    private let api_url_timer_end = "http://54.191.229.14/timerend/"
     var myUserDafault:NSUserDefaults = NSUserDefaults()
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     let myDevice: UIDevice = UIDevice.currentDevice()
+    let userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,14 +202,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     func onTimerButtonClick(sender: UIButton){
         
         if timerRunning == false {
-            
-                timerButton.backgroundColor = UIColor.blueColor()
-                timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
-             self.timerRunning = true
+            timerButton.backgroundColor = UIColor.blueColor()
+            timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
+            self.timerRunning = true
             myUserDafault.setBool(timerRunning, forKey: "timerRunning")
-            
-            
         } else {
+            //API
+            requestApiEnd()
             //結果画面移行画面
             goToResultView()
         }
@@ -215,9 +218,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         Alamofire.request(.GET, foursquareUrl).responseJSON{ (request, response, data, error) in
             
             if (response?.statusCode == 200) {
-                
+//                println(data)
                 self.json = SwiftyJSON.JSON(data!)
-                
+//                println(self.json)
             }else {
                 //TODO エラー処理
                 println(error)
@@ -227,9 +230,66 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             selectLocationViewController.setUpParameter(self.json)
             self.presentViewController(selectLocationViewController, animated: true, completion: nil)
             selectLocationViewController.delegate = self
-            
         }
         
+    }
+    
+    func requestApiStart() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP") // ロケールの設定
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let start_at = dateFormatter.stringFromDate(startTime)
+        let param = ["_location": _location, "lat": String("\(lat)"), "lng": String("\(lng)"), "foursquare_id": _locationId, "start_at": start_at]
+        let headers = ["Authorized-Token": userModel.getToken()]
+        Alamofire.request(.POST, api_url_timer_start, parameters: param, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
+        /* r.responseJSON { (request, response, responseData, error) -> Void in */
+        println(request)
+            println(response)
+            println(responseData)
+            println(request.allHTTPHeaderFields)
+            if (response?.statusCode == 200) {
+                let results = SwiftyJSON.JSON(responseData!)
+                println(8)
+                println(results)
+                println(9)
+                println(results["response"]["timer_id"])
+                let timer_id_int: Int = results["response"]["timer_id"].int!
+                let timer_id: String = timer_id_int.description
+                println(timer_id)
+                self.myUserDafault.setObject(timer_id, forKey: "timer_id")
+                println(self.myUserDafault.stringForKey("timer_id"))
+            }else {
+                println(request.allHTTPHeaderFields)
+                println(error)
+            }
+        }
+    }
+    
+    func requestApiEnd() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP") // ロケールの設定
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let end_at = dateFormatter.stringFromDate(NSDate())
+        let timer_id = myUserDafault.stringForKey("timer_id")!
+        let param = ["id": timer_id, "end_at": end_at]
+        let headers = ["Authorized-Token": userModel.getToken()]
+        Alamofire.request(.POST, api_url_timer_end, parameters: param, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
+            /* r.responseJSON { (request, response, responseData, error) -> Void in */
+            println(request)
+            println(response)
+            println(responseData)
+            println(request.allHTTPHeaderFields)
+            if (response?.statusCode == 200) {
+                let results = SwiftyJSON.JSON(responseData!)
+                println(results)
+            }else {
+                println(request.allHTTPHeaderFields)
+                println(error)
+            }
+            //            let token: String = results["response"]["token"].string!
+        }
+
+
     }
     
     func goToResultView() {
@@ -259,14 +319,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
     }
     
-    func locationSelect(locationName: String) {
+    func locationSelect(locationName: String, locationId: String) {
         
         self._location = locationName
+        self._locationId = locationId
         locationLabel.text = self._location
 //        self.view.addSubview(locationLabel)
         startTime = NSDate()
+        println(-1)
+        println(NSDate())
+        println(startTime)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
         
+        self.requestApiStart()
     }
     
     func backbutton() {

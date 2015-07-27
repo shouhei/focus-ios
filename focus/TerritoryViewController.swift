@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Alamofire
+import SwiftyJSON
 
 
 class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
@@ -20,6 +22,8 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     private var destLocation: CLLocationCoordinate2D!
     private var selectAnnotation: MKPointAnnotation!
     private var mapPoint: CLLocationCoordinate2D!
+    private let userModel = UserModel()
+    private let api_url_owners = "http://54.191.229.14/spots/owners"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +79,67 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         self.view.addSubview(mySearchBar)
         self.view.addSubview(searchBarBg)
+        
+        
+        
+        
+        
+        let myPointAnnotation: MKPointAnnotation = MKPointAnnotation()
+
+        self.setup()
+    }
+    
+    func setup() {
+        let headers = ["Authorized-Token": userModel.getToken()]
+        Alamofire.request(.GET, api_url_owners, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
+            println(request)
+            println(response)
+            println(responseData)
+            println(request.allHTTPHeaderFields)
+            if (response?.statusCode == 200) {
+                let results = SwiftyJSON.JSON(responseData!)
+                println(results)
+                println(1)
+                for (index: String, j: JSON) in results["response"] {
+                    println(j)
+                    if(j["spot"] == nil) {
+                        continue
+                    }
+                    
+                    // ピンを生成.
+                    var pin: MKPointAnnotation = MKPointAnnotation()
+                    // 座標を設定.
+                    println(2)
+                    println(j)
+                    println(j["spot"]["lat"].doubleValue)
+                    let lat: CLLocationDegrees = j["spot"]["lat"].doubleValue
+//                    let lat: CLLocationDegrees = 35.56590
+                    println(3)
+                    let lng: CLLocationDegrees = j["spot"]["lng"].doubleValue
+//                    let lng: CLLocationDegrees = 139.403
+                    println(4)
+                    println(lng)
+                    pin.coordinate = CLLocationCoordinate2DMake(lat, lng)
+                    println(5)
+                    println(j["data"][0]["user"]["name"].stringValue)
+                    // タイトルを設定.
+                    pin.title = j["data"][0]["user"]["name"].stringValue
+//
+                    // サブタイトルを設定.
+                    println(6)
+                    pin.subtitle = j["data"][0]["sum"].stringValue
+                    // MapViewにピンを追加.
+                    println(7)
+                    self.MyMapView.addAnnotation(pin)
+                }
+                println(10)
+                
+                
+            }else {
+                println(request.allHTTPHeaderFields)
+                println(error)
+            }
+        }
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -140,10 +205,27 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
     }
     
+    
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         print("locationManager error")
     }
+    
+//    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+//        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
+//            return nil
+//        } else {
+//            let identifier = "annotation"
+//            if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") { // 再利用できる場合はそのまま返す
+//                return annotationView
+//            } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
+//                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//                annotationView.frame.size = CGSize(width: 10, height: 10)
+//                annotationView.image = UIImage(named: "fountain_pen60")
+//                return annotationView
+//            }
+//        }
+//    }
 
     
     
