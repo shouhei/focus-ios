@@ -41,6 +41,9 @@ class UserModel {
                 result = Int(id)
             }
         }
+        println(1)
+        println(self.getMe())
+        println(2)
         return result!
     }
     

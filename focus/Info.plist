@@ -7,7 +7,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>to focusApplication</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>ja</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
