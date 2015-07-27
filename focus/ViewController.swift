@@ -245,13 +245,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             println(responseData)
             println(request.allHTTPHeaderFields)
             if (response?.statusCode == 200) {
-                //                println(data)
-                println(7)
                 let results = SwiftyJSON.JSON(responseData!)
                 println(8)
                 println(results)
                 println(9)
-//                let timer_id = results["response"]["timer_id"].string!
                 println(results["response"]["timer_id"])
                 let timer_id_int: Int = results["response"]["timer_id"].int!
                 let timer_id: String = timer_id_int.description
@@ -262,7 +259,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
                 println(request.allHTTPHeaderFields)
                 println(error)
             }
-//            let token: String = results["response"]["token"].string!
         }
     }
     
@@ -281,11 +277,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             println(responseData)
             println(request.allHTTPHeaderFields)
             if (response?.statusCode == 200) {
-                println(7)
                 let results = SwiftyJSON.JSON(responseData!)
-                println(8)
                 println(results)
-                println(9)
             }else {
                 println(request.allHTTPHeaderFields)
                 println(error)
