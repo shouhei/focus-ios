@@ -15,14 +15,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var _json: JSON!
-    let histoyUrl: String = "http://54.191.229.14/users/history/"
+    let histoyUrl: String = "http://54.191.229.14/users/"
+    private let userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var token = UserModel().getToken()
-        
-        println(token)
+        var token = userModel.getToken()
         
         connection(token)
         
@@ -41,7 +40,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.view.addSubview(tableView)
+        
         self.view.addSubview(barBg)
     
     }
@@ -53,8 +52,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return _json["response"].count
-    
+        if self._json == nil{
+            
+            return 0
+            
+        } else {
+            
+            return _json["response"].count
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -71,17 +76,32 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         println(self._json["response"][indexPath.row]["spot"]["name"].string)
         
-        cell.placeLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
-        cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
+        if self._json == nil {
+            
+            cell.placeLabel.text = ""
+            cell.timeLabel.text = ""
+            var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
         
-        var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
+            let crownimage = UIImage(named: "crown")
         
-        let crownimage = UIImage(named: "crown")
+            myImageView.image = crownimage
         
-        myImageView.image = crownimage
+            cell.accessoryView = myImageView
         
-        cell.accessoryView = myImageView
-        
+        } else {
+            
+            cell.placeLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
+            cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
+            
+            var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
+            
+            let crownimage = UIImage(named: "crown")
+            
+            myImageView.image = crownimage
+            
+            cell.accessoryView = myImageView
+            
+        }
         return cell
         
     }
@@ -106,17 +126,25 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func connection(token: String) -> Void {
         
         println("2")
-        var request = NSMutableURLRequest(URL:NSURL(string: histoyUrl)!, cachePolicy:.ReloadIgnoringLocalCacheData, timeoutInterval:4.0)
-        request.HTTPMethod = "GET"
-        request.addValue(token, forHTTPHeaderField: "Authorized_Token")
+        println(token)
         
-        Alamofire.request(request).responseJSON{ (request, response, data, error) in
+        var headers = ["Authorized-Token": token]
+        
+        Alamofire.request(.GET, histoyUrl, headers: headers).responseJSON{ (request, response, data, error) in
             
-            println("request")
+            println(request)
             
             if (response?.statusCode == 200) {
                 
+                println("3")
                 self._json = SwiftyJSON.JSON(data!)
+                
+                println(self._json)
+                
+                self.tableView.reloadData()
+                
+                self.view.addSubview(self.tableView)
+
                 
             }else {
                 //TODO エラー処理

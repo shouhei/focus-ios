@@ -17,8 +17,8 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var _json: JSON!
-    let rankUrl: String = "http://54.191.229.14//users/ranking/"
     var placeId: Int!
+    private let userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +42,8 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
+    
         
-        self.view.addSubview(tableView)
         self.view.addSubview(barBg)
         
     }
@@ -55,8 +55,16 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return _json["response"].count
-
+        if _json == nil{
+            
+            return 0
+            
+        } else {
+            
+            return _json["response"]["data"].count
+        
+        }
+        
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -64,10 +72,19 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! RankCell
         
-        println(self._json["response"][indexPath.row]["spot"]["name"].string)
+        if _json == nil{
+            
+            cell.nameLabel.text = ""
+            cell.timeLabel.text = ""
+
+            
+        } else{
+            println(self._json["response"][indexPath.row]["spot"]["name"].string)
+            
+            cell.nameLabel.text = self._json["response"]["data"][indexPath.row]["user"]["name"].string
+            cell.timeLabel.text = self._json["response"]["data"][indexPath.row]["sum"].string
+        }
         
-        cell.nameLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
-        cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
         
         var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
         
@@ -88,13 +105,26 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        request.HTTPMethod = "GET"
 //        request.addValue(token, forHTTPHeaderField: "Authorized_Token")
         
-        Alamofire.request(.GET, rankUrl, parameters: ["rankid": self.placeId]).responseJSON{ (request, response, data, error) in
+        println(token)
+        
+        let rankUrl: String = "http://54.191.229.14/spots/\(self.placeId)"
+        
+        var headers = ["Authorized-Token": token]
+        
+        Alamofire.request(.GET, rankUrl, headers: headers).responseJSON{ (request, response, data, error) in
             
-            println("request")
+            println(request)
+            println(response)
             
             if (response?.statusCode == 200) {
                 
                 self._json = SwiftyJSON.JSON(data!)
+                
+                
+                println(self._json)
+                self.tableView.reloadData()
+                
+                self.view.addSubview(self.tableView)
                 
             }else {
                 //TODO エラー処理
