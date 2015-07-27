@@ -43,6 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //timerLabel
         if (timerLabel == nil) {
             timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+            // フォントサイズ
+            timerLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 24)
             timerLabel.textColor = UIColor.whiteColor()
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
@@ -57,6 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //timerLabel
         
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+        timerLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 24)
         timerLabel.textColor = UIColorFromHex(0xE9F2F9)
         timerLabel.textAlignment = NSTextAlignment.Center
         timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)

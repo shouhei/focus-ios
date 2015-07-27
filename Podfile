@@ -3,7 +3,7 @@
 use_frameworks!
 
 target 'focus' do
-   pod 'Alamofire'
+   pod 'Alamofire', '~> 1.3'
    pod 'SwiftyJSON'
 end
 
