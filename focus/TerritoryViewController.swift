@@ -24,6 +24,7 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     private var mapPoint: CLLocationCoordinate2D!
     private let userModel = UserModel()
     private let api_url_owners = "http://54.191.229.14/spots/owners"
+    private var results: JSON!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,40 +98,38 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             println(responseData)
             println(request.allHTTPHeaderFields)
             if (response?.statusCode == 200) {
-                let results = SwiftyJSON.JSON(responseData!)
-                println(results)
+                self.results = SwiftyJSON.JSON(responseData!)
+                println(self.results)
                 println(1)
-                for (index: String, j: JSON) in results["response"] {
+                for (index: String, j: JSON) in self.results["response"] {
                     println(j)
                     if(j["spot"] == nil) {
                         continue
                     }
                     
-                    // ピンを生成.
-                    var pin: MKPointAnnotation = MKPointAnnotation()
                     // 座標を設定.
-                    println(2)
                     println(j)
-                    println(j["spot"]["lat"].doubleValue)
+                    
                     let lat: CLLocationDegrees = j["spot"]["lat"].doubleValue
-//                    let lat: CLLocationDegrees = 35.56590
-                    println(3)
                     let lng: CLLocationDegrees = j["spot"]["lng"].doubleValue
-//                    let lng: CLLocationDegrees = 139.403
-                    println(4)
-                    println(lng)
-                    pin.coordinate = CLLocationCoordinate2DMake(lat, lng)
-                    println(5)
-                    println(j["data"][0]["user"]["name"].stringValue)
+                    
+                    var coordinate = CLLocationCoordinate2DMake(lat, lng)
+                    var pin: CustomAnnotation = CustomAnnotation(_coordinate: coordinate)
+                    
                     // タイトルを設定.
-                    pin.title = j["data"][0]["user"]["name"].stringValue
-//
+                    pin.title = j["spot"]["name"].stringValue
                     // サブタイトルを設定.
-                    println(6)
-                    pin.subtitle = j["data"][0]["sum"].stringValue
+                    pin.subtitle = j["data"][0]["user"]["name"].stringValue + j["data"][0]["sum"].stringValue
+                    
+                    var time = j["data"][0]["sum"].stringValue
+                    let arr2: [String] = time.componentsSeparatedByString(":")
+                    
+                    pin.initialize = arr2[2].toInt()
+                    
                     // MapViewにピンを追加.
                     println(7)
                     self.MyMapView.addAnnotation(pin)
+                    
                 }
                 println(10)
                 
@@ -193,7 +192,7 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         userLocAnnotation.coordinate = userLocation
         userLocAnnotation.title = "現在地"
         
-        //        MyMapView.addAnnotation(userLocAnnotation)
+        MyMapView.addAnnotation(userLocAnnotation)
         
         MyMapView.alpha = 1.0
         
@@ -206,27 +205,53 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     
+    
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         print("locationManager error")
     }
     
-//    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-//        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
-//            return nil
-//        } else {
-//            let identifier = "annotation"
-//            if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") { // 再利用できる場合はそのまま返す
-//                return annotationView
-//            } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
-//                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-//                annotationView.frame.size = CGSize(width: 10, height: 10)
-//                annotationView.image = UIImage(named: "fountain_pen60")
-//                return annotationView
-//            }
-//        }
-//    }
-
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        let customAnnotation = annotation as? CustomAnnotation
+        println("time:\(customAnnotation?.initialize)")
+        
+        
+        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
+            return nil
+        } else {
+            let identifier = "annotation"
+            if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") { // 再利用できる場合はそのまま返す
+                return annotationView
+            } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
+                
+                //println(stringToInt(results["data"][0]["sum"].stringValue))
+                
+                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView.frame.size = CGSize(width: 10, height: 10)
+                if (customAnnotation?.initialize >= 30) {
+                    annotationView.image = UIImage(named: "fountain_pen60")
+                } else if (customAnnotation?.initialize >= 20) {
+                    annotationView.image = UIImage(named: "pen60")
+                } else {
+                    annotationView.image = UIImage(named: "pencil60")
+                }
+                
+                return annotationView
+            }
+        }
+    }
     
+    
+    
+//    func stringToInt(date_string: String) -> NSDate {
+//        var date_formatter: NSDateFormatter = NSDateFormatter()
+//        date_formatter.locale     = NSLocale(localeIdentifier: "ja")
+//        date_formatter.dateFormat = "HH:mm:ss"
+//        var date_nsdate: NSDate = date_formatter.dateFromString(date_string)!
+//        
+//        return date_nsdate
+//        
+//    }
     
 }

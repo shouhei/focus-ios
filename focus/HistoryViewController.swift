@@ -13,13 +13,31 @@ import SwiftyJSON
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    private var myActivityIndicator: UIActivityIndicatorView!
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var _json: JSON!
     let histoyUrl: String = "http://54.191.229.14/users/"
     private let userModel = UserModel()
+    private let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.blackColor()
+        // インジケータを作成する.
+        myActivityIndicator = UIActivityIndicatorView()
+        myActivityIndicator.frame = CGRectMake(0, 0, 50, 50)
+        myActivityIndicator.center = self.view.center
+        
+        // アニメーションが停止している時もインジケータを表示させる.
+        myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        
+        // アニメーションを開始する.
+        myActivityIndicator.startAnimating()
+        
+        // インジケータをViewに追加する.
+        self.view.addSubview(myActivityIndicator)
         
         var token = userModel.getToken()
         
@@ -39,7 +57,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         self.view.addSubview(barBg)
     
@@ -70,11 +87,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        println("1")
-        
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! HistoryCell
         
-        println(self._json["response"][indexPath.row]["spot"]["name"].string)
         
         if self._json == nil {
             
@@ -100,8 +114,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             myImageView.image = crownimage
             
             cell.accessoryView = myImageView
+            self.indicator.stopAnimating()
             
         }
+        
         return cell
         
     }
@@ -112,21 +128,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         rankViewController.setUpParameter(self._json["response"][indexPath.row]["spot"]["id"].int!)
         rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         self.presentViewController(rankViewController, animated: true, completion: nil)
-        println(indexPath.row)
+        println("indexpath:\(indexPath.row)")
     
     }
     
-    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-    
-        println(indexPath.row)
-    
-    }
+//    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+//    
+//        println(indexPath.row)
+//    
+//    }
     
     
     func connection(token: String) -> Void {
-        
-        println("2")
-        println(token)
         
         var headers = ["Authorized-Token": token]
         
@@ -136,7 +149,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             if (response?.statusCode == 200) {
                 
-                println("3")
+            
                 self._json = SwiftyJSON.JSON(data!)
                 
                 println(self._json)

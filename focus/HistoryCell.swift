@@ -30,14 +30,14 @@ class HistoryCell:  UITableViewCell{
         //First Call Super
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        placeLabel = UILabel(frame: CGRectMake(10, 20, 300, 15));
+        placeLabel = UILabel(frame: CGRectMake(10, 20, 150, 15));
         placeLabel.text = "";
-        placeLabel.font = UIFont.systemFontOfSize(20)
+        placeLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 13)
         self.addSubview(placeLabel);
         
-        timeLabel = UILabel(frame: CGRectMake(150, 20, 300, 15));
+        timeLabel = UILabel(frame: CGRectMake(170, 20, 300, 20));
         timeLabel.text = "";
-        timeLabel.font = UIFont.systemFontOfSize(22)
+        timeLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 20)
         self.addSubview(timeLabel);
         
     }

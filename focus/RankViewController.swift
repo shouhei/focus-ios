@@ -100,11 +100,6 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func connection(token: String) -> Void {
         
-        println("2")
-//        var request = NSMutableURLRequest(URL:NSURL(string: rankUrl)!, cachePolicy:.ReloadIgnoringLocalCacheData, timeoutInterval:4.0)
-//        request.HTTPMethod = "GET"
-//        request.addValue(token, forHTTPHeaderField: "Authorized_Token")
-        
         println(token)
         
         let rankUrl: String = "http://54.191.229.14/spots/\(self.placeId)"
