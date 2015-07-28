@@ -15,6 +15,8 @@ class RankCell:  UITableViewCell{
     
     var nameLabel = UILabel()
     var timeLabel = UILabel()
+    var rankview: UIImageView!
+    var rankImage = UIImage()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,15 +35,19 @@ class RankCell:  UITableViewCell{
         //First Call Super
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        nameLabel = UILabel(frame: CGRectMake(10, 20, 300, 15));
+        nameLabel = UILabel(frame: CGRectMake(50, 20, 300, 15));
         nameLabel.text = "";
-        nameLabel.font = UIFont.systemFontOfSize(20)
+        nameLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 20)
         self.addSubview(nameLabel);
         
-        timeLabel = UILabel(frame: CGRectMake(150, 20, 300, 15));
+        timeLabel = UILabel(frame: CGRectMake(200, 20, 300, 15));
         timeLabel.text = "";
-        timeLabel.font = UIFont.systemFontOfSize(22)
+        timeLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 20)
         self.addSubview(timeLabel);
+        
+        rankview = UIImageView(frame: CGRectMake(10, 10, 20, 20))
+        rankview.image = rankImage
+        self.addSubview(rankview);
         
     }
     

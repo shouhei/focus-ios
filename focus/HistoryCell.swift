@@ -38,6 +38,7 @@ class HistoryCell:  UITableViewCell{
         timeLabel = UILabel(frame: CGRectMake(170, 20, 300, 20));
         timeLabel.text = "";
         timeLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 20)
+        
         self.addSubview(timeLabel);
         
     }

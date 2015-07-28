@@ -122,13 +122,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
         let rankViewController: RankViewController = RankViewController()
-        rankViewController.setUpParameter(self._json["response"][indexPath.row]["spot"]["id"].int!)
+        println(self._json["response"][indexPath.row]["spot"]["id"].int!)
+        rankViewController.setUpParameter(self._json["response"][indexPath.row]["spot"]["id"].int!, placename: self._json["response"][indexPath.row]["spot"]["name"].string!)
         rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         self.presentViewController(rankViewController, animated: true, completion: nil)
-        println("indexpath:\(indexPath.row)")
     
     }
     
@@ -144,8 +144,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var headers = ["Authorized-Token": token]
         
         Alamofire.request(.GET, histoyUrl, headers: headers).responseJSON{ (request, response, data, error) in
-            
-            println(request)
             
             if (response?.statusCode == 200) {
                 

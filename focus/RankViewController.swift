@@ -18,6 +18,7 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var _json: JSON!
     var placeId: Int!
+    var placeName: String!
     private let userModel = UserModel()
     
     override func viewDidLoad() {
@@ -25,15 +26,14 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         var token = UserModel().getToken()
         
-        println(token)
-        
         connection(token)
         
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
         barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
         let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
         
-        barLabel.text = "ランキング"
+        
+        barLabel.text = self.placeName
         barLabel.textColor = UIColor.whiteColor()
         barLabel.textAlignment = NSTextAlignment.Center
         barBg.addSubview(barLabel)
@@ -64,75 +64,86 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
             return _json["response"]["data"].count
         
         }
+      
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        return 50.0
         
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        println("1")
         
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! RankCell
         
-        if _json == nil{
+        if _json == nil {
             
             cell.nameLabel.text = ""
             cell.timeLabel.text = ""
-
             
-        } else{
-            println(self._json["response"][indexPath.row]["spot"]["name"].string)
-            
-            cell.nameLabel.text = self._json["response"]["data"][indexPath.row]["user"]["name"].string
-            cell.timeLabel.text = self._json["response"]["data"][indexPath.row]["sum"].string
+        }else{
+           
+            if (indexPath.row == 0){
+                
+                cell.nameLabel.text = self._json["response"]["data"][indexPath.row]["user"]["name"].string
+                cell.timeLabel.text = self._json["response"]["data"][indexPath.row]["sum"].string
+                var rankImage: UIImage = UIImage(named:"rank_oukan")!
+                cell.rankImage = rankImage
+                cell.rankview.image = rankImage
+                
+            } else {
+                
+                cell.nameLabel.text = self._json["response"]["data"][indexPath.row]["user"]["name"].string
+                cell.timeLabel.text = self._json["response"]["data"][indexPath.row]["sum"].string
+           
+            }
+        
         }
-        
-        
-        var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
-        
-        let crownimage = UIImage(named: "crown")
-        
-        myImageView.image = crownimage
-        
-        cell.accessoryView = myImageView
         
         return cell
         
     }
     
     func connection(token: String) -> Void {
-        
-        println(token)
-        
+        println("3")
         let rankUrl: String = "http://54.191.229.14/spots/\(self.placeId)"
+        println(token)
         
         var headers = ["Authorized-Token": token]
         
+        println(4)
+        println(rankUrl)
+        println(5)
+        println(headers)
         Alamofire.request(.GET, rankUrl, headers: headers).responseJSON{ (request, response, data, error) in
             
             println(request)
             println(response)
+            println(token)
             
             if (response?.statusCode == 200) {
                 
                 self._json = SwiftyJSON.JSON(data!)
                 
-                
                 println(self._json)
-                self.tableView.reloadData()
-                
-                self.view.addSubview(self.tableView)
                 
             }else {
                 //TODO エラー処理
                 println(error)
+            
             }
             
+            self.tableView.reloadData()
+            self.view.addSubview(self.tableView)
         }
         
     }
     
-    func setUpParameter(placeid: Int) {
+    func setUpParameter(placeid: Int, placename: String) {
         
         self.placeId = placeid
+        self.placeName = placename
         
     }
     
