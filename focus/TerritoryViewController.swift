@@ -34,10 +34,10 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         // 検索の背景作っちゃう
         let searchBarBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
-        searchBarBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        searchBarBg.backgroundColor = UIColorFromHex(0xC2B49A) // TODO なんかいい感じのいろに
         let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
         
-        barLabel.text = "勢力図"
+        barLabel.text = "集中マップ"
         barLabel.textColor = UIColor.whiteColor()
         barLabel.textAlignment = NSTextAlignment.Center
         searchBarBg.addSubview(barLabel)

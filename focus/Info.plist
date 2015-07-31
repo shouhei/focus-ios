@@ -5,7 +5,7 @@
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>to focusApplication</string>
+	<string>to FOCUS Application</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ja</string>
 	<key>CFBundleExecutable</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>focus</string>
+	<string>FOCUS</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -25,10 +25,6 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>to focusApplication</string>
-	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -42,8 +38,8 @@
 		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

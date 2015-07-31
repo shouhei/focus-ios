@@ -44,7 +44,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         connection(token)
         
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
-        barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        barBg.backgroundColor = UIColorFromHex(0xC2B49A) // TODO なんかいい感じのいろに
         let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
         
         barLabel.text = "集中履歴"

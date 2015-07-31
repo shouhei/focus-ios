@@ -37,21 +37,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     let myDevice: UIDevice = UIDevice.currentDevice()
     let userModel = UserModel()
+    private var startImage = CIImage(image: UIImage(named: "start_to_focus.png"))
+    private var stopImage = CIImage(image: UIImage(named: "focus_home.png"))
+    private var myImageView = UIImageView(frame: CGRectMake(0, 0, 350, 600))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
         
+        myImageView.image = UIImage(CIImage: startImage)
+        self.view.addSubview(myImageView)
         // Do any additional setup after loading the view, typically from a nib.
         
         //timerLabel
         if (timerLabel == nil) {
             timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
             // フォントサイズ
-            timerLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 24)
-            timerLabel.textColor = UIColor.whiteColor()
+            timerLabel.font = UIFont(name: "GillSans-Bold", size: 24)
+            timerLabel.textColor = UIColor.blackColor()
             timerLabel.textAlignment = NSTextAlignment.Center
-            timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
+            timerLabel.layer.position = CGPoint(x: windowWidth()/2 - 50, y: windowHeight()/2 + 50)
         }
         backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
             UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!)
@@ -63,25 +68,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //timerLabel
         
         timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
-        timerLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 24)
-        timerLabel.textColor = UIColorFromHex(0xE9F2F9)
+        timerLabel.font = UIFont(name: "GillSans-Bold", size: 22)
+        timerLabel.textColor = UIColor.blackColor()
         timerLabel.textAlignment = NSTextAlignment.Center
-        timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 20)
+        timerLabel.layer.position = CGPoint(x: windowWidth()/2 - 42, y: windowHeight()/2 + 57)
         
         
         //locationLabel
         
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        locationLabel.textColor = UIColorFromHex(0x9CC4E4)
+        locationLabel.textColor = UIColorFromHex(0xf5f5f5)
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
         //timerButton
-        
+        var image = UIImage(named: "startbutton.png")
         timerButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
-        timerButton.layer.cornerRadius = 20.0
-        timerButton.backgroundColor = UIColorFromHex(0xFFD464)
-        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
+        timerButton.setImage(image, forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 125)
         timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -129,7 +132,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
                 timerRunning = true
                 myUserDafault.setBool(timerRunning, forKey: "timerRunning")
                 
+                
                 timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
+                myImageView.image = UIImage(CIImage: stopImage)
+                var image = UIImage(named: "stopbutton.png")
+                timerButton.setImage(image, forState: UIControlState.Normal)
+                
+                //追加
+                self.view.addSubview(myImageView)
+                self.view.addSubview(timerButton)
+                self.view.addSubview(timerLabel)
+                self.view.addSubview(locationLabel)
                 
             } else {
                 NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("goToResultView"), userInfo: nil, repeats: false)
@@ -139,7 +152,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         }
         self.view.addSubview(timerButton)
         self.view.addSubview(timerLabel)
-        self.view.backgroundColor = UIColorFromHex(0x00bfff)
     }
     
     func willEnterBackground(notification: NSNotification?){
@@ -147,6 +159,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     }
     
     func save() {
+        
         let datetime = getNowString()
         let start_time = dateToString(startTime)
         let place: String = locationLabel.text!
@@ -202,10 +215,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     func onTimerButtonClick(sender: UIButton){
         
         if timerRunning == false {
-            timerButton.backgroundColor = UIColor.blueColor()
-            timerButton.setTitle("あきらめる!!", forState: UIControlState.Normal)
+            
             self.timerRunning = true
             myUserDafault.setBool(timerRunning, forKey: "timerRunning")
+            
         } else {
             //API
             requestApiEnd()
@@ -242,25 +255,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         let param = ["_location": _location, "lat": String("\(lat)"), "lng": String("\(lng)"), "foursquare_id": _locationId, "start_at": start_at]
         let headers = ["Authorized-Token": userModel.getToken()]
         Alamofire.request(.POST, api_url_timer_start, parameters: param, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
-        /* r.responseJSON { (request, response, responseData, error) -> Void in */
-        println(request)
-            println(response)
-            println(responseData)
-            println(request.allHTTPHeaderFields)
+            
             if (response?.statusCode == 200) {
+                
                 let results = SwiftyJSON.JSON(responseData!)
-                println(8)
-                println(results)
-                println(9)
                 println(results["response"]["timer_id"])
                 let timer_id_int: Int = results["response"]["timer_id"].int!
                 let timer_id: String = timer_id_int.description
-                println(timer_id)
                 self.myUserDafault.setObject(timer_id, forKey: "timer_id")
-                println(self.myUserDafault.stringForKey("timer_id"))
+            
             }else {
+                
                 println(request.allHTTPHeaderFields)
                 println(error)
+            
             }
         }
     }
@@ -274,22 +282,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         let param = ["id": timer_id, "end_at": end_at]
         let headers = ["Authorized-Token": userModel.getToken()]
         Alamofire.request(.POST, api_url_timer_end, parameters: param, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
-            /* r.responseJSON { (request, response, responseData, error) -> Void in */
-            println(request)
-            println(response)
-            println(responseData)
-            println(request.allHTTPHeaderFields)
+            
+            
             if (response?.statusCode == 200) {
                 let results = SwiftyJSON.JSON(responseData!)
-                println(results)
             }else {
                 println(request.allHTTPHeaderFields)
                 println(error)
             }
-            //            let token: String = results["response"]["token"].string!
         }
-
-
     }
     
     func goToResultView() {
@@ -324,12 +325,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         self._location = locationName
         self._locationId = locationId
         locationLabel.text = self._location
-//        self.view.addSubview(locationLabel)
+        
         startTime = NSDate()
-        println(-1)
-        println(NSDate())
-        println(startTime)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
+        
+        myImageView.image = UIImage(CIImage: stopImage)
+        var image = UIImage(named: "stopbutton.png")
+        timerButton.setImage(image, forState: UIControlState.Normal)
+        
+        //追加
+        self.view.addSubview(myImageView)
+        self.view.addSubview(timerButton)
+        self.view.addSubview(timerLabel)
+        self.view.addSubview(locationLabel)
         
         self.requestApiStart()
     }
@@ -338,8 +346,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         
         self.timerRunning = false
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
-        timerButton.backgroundColor = UIColor.redColor()
-        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
+//        timerButton.backgroundColor = UIColor.redColor()
+//        timerButton.setTitle("集中開始!!", forState: UIControlState.Normal)
     }
     
     func resetTimer() {

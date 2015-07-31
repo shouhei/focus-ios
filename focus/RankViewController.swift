@@ -106,16 +106,10 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func connection(token: String) -> Void {
-        println("3")
         let rankUrl: String = "http://54.191.229.14/spots/\(self.placeId)"
         println(token)
-        
         var headers = ["Authorized-Token": token]
         
-        println(4)
-        println(rankUrl)
-        println(5)
-        println(headers)
         Alamofire.request(.GET, rankUrl, headers: headers).responseJSON{ (request, response, data, error) in
             
             println(request)

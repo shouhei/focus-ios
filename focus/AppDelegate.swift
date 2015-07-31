@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, CLLocationManagerDelegate, UIApplicationDelegate
         var notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 5);//５秒後
         notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.alertTitle = "FOCUSからの通知"
         notification.alertBody = "集中して！"
         notification.alertAction = "OK"
         notification.soundName = UILocalNotificationDefaultSoundName
@@ -77,6 +78,7 @@ class AppDelegate: UIResponder, CLLocationManagerDelegate, UIApplicationDelegate
         
         println("did enter back")
         NSNotificationCenter.defaultCenter().postNotificationName("applicationWillEnterBackground", object: nil)
+        
     }
     
 //    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {

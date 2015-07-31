@@ -19,6 +19,10 @@
 		652F9EDA1B5A938A008238C9 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9ED91B5A938A008238C9 /* RankViewController.swift */; };
 		652F9EDC1B5B4798008238C9 /* TerritoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */; };
 		65307F571B671B65004D208E /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65307F561B671B65004D208E /* CustomAnnotation.swift */; };
+		65307F5B1B67D448004D208E /* focus_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F5A1B67D448004D208E /* focus_home.png */; };
+		65307F6B1B689B51004D208E /* start_to_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F6A1B689B51004D208E /* start_to_focus.png */; };
+		65307F6D1B689B59004D208E /* startbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F6C1B689B59004D208E /* startbutton.png */; };
+		65307F711B69E757004D208E /* stopbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F701B69E757004D208E /* stopbutton.png */; };
 		653F932F1B64B8D400BB8118 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F932E1B64B8D400BB8118 /* HistoryCell.swift */; };
 		6556FCCB1B65707C00C4156B /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556FCCA1B65707C00C4156B /* RankCell.swift */; };
 		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
@@ -29,7 +33,6 @@
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
 		BA6709A11B4B8A7D00303C78 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA6709A01B4B8A7D00303C78 /* Images.xcassets */; };
-		BA6709A41B4B8A7D00303C78 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */; };
 		BA6709B01B4B8A7D00303C78 /* focusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709AF1B4B8A7D00303C78 /* focusTests.swift */; };
 		D6558CC9D0D892BD7885BB8B /* Pods_focus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B0FC869251437E7E3DA958 /* Pods_focus.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -59,6 +62,10 @@
 		652F9ED91B5A938A008238C9 /* RankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
 		652F9EDB1B5B4798008238C9 /* TerritoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerritoryViewController.swift; sourceTree = "<group>"; };
 		65307F561B671B65004D208E /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		65307F5A1B67D448004D208E /* focus_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = focus_home.png; sourceTree = "<group>"; };
+		65307F6A1B689B51004D208E /* start_to_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_to_focus.png; sourceTree = "<group>"; };
+		65307F6C1B689B59004D208E /* startbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startbutton.png; sourceTree = "<group>"; };
+		65307F701B69E757004D208E /* stopbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopbutton.png; sourceTree = "<group>"; };
 		653F932E1B64B8D400BB8118 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		6556FCCA1B65707C00C4156B /* RankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankCell.swift; path = ../model/RankCell.swift; sourceTree = "<group>"; };
 		65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +79,6 @@
 		BA67099B1B4B8A7D00303C78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BA67099E1B4B8A7D00303C78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA6709A01B4B8A7D00303C78 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BA6709A31B4B8A7D00303C78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BA6709A91B4B8A7D00303C78 /* focusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = focusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709AE1B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709AF1B4B8A7D00303C78 /* focusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = focusTests.swift; sourceTree = "<group>"; };
@@ -186,7 +192,10 @@
 				65307F561B671B65004D208E /* CustomAnnotation.swift */,
 				BA67099D1B4B8A7D00303C78 /* Main.storyboard */,
 				BA6709A01B4B8A7D00303C78 /* Images.xcassets */,
-				BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */,
+				65307F5A1B67D448004D208E /* focus_home.png */,
+				65307F6A1B689B51004D208E /* start_to_focus.png */,
+				65307F6C1B689B59004D208E /* startbutton.png */,
+				65307F701B69E757004D208E /* stopbutton.png */,
 				BA6709971B4B8A7D00303C78 /* Supporting Files */,
 				BA6709AC1B4B8A7D00303C78 /* focusTests */,
 			);
@@ -306,8 +315,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65307F711B69E757004D208E /* stopbutton.png in Resources */,
 				BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */,
-				BA6709A41B4B8A7D00303C78 /* LaunchScreen.xib in Resources */,
+				65307F6B1B689B51004D208E /* start_to_focus.png in Resources */,
+				65307F6D1B689B59004D208E /* startbutton.png in Resources */,
+				65307F5B1B67D448004D208E /* focus_home.png in Resources */,
 				BA6709A11B4B8A7D00303C78 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,14 +435,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		BA6709A21B4B8A7D00303C78 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BA6709A31B4B8A7D00303C78 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -520,6 +524,7 @@
 			baseConfigurationReference = E10C30A4252BF97BB6DC10A7 /* Pods-focus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = focus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -532,6 +537,7 @@
 			baseConfigurationReference = 06DDDEFE7067243028B0C043 /* Pods-focus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = focus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

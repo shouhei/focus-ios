@@ -68,7 +68,7 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         firstTab.tabBarItem = UITabBarItem(title: "集中", image: UIImage(named: "pensil-icon"), selectedImage: UIImage(named: "pensil-icon"))
         secondTab.tabBarItem = UITabBarItem(title: "履歴", image: UIImage(named: "document-icon"), selectedImage: UIImage(named: "document-icon"))
             
-        thirdTab.tabBarItem = UITabBarItem(title: "勢力図", image: UIImage(named: "map-icon"), selectedImage: UIImage(named: "map-icon"))
+        thirdTab.tabBarItem = UITabBarItem(title: "集中マップ", image: UIImage(named: "map-icon"), selectedImage: UIImage(named: "map-icon"))
         
         let tabs = NSArray(objects: firstTab, secondTab, thirdTab)
         
