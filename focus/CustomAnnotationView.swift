@@ -17,7 +17,7 @@ class CustomAnnotationView: MKAnnotationView {
         }
     }
 
-    private let thumbnailImageView: UIImageView! = UIImageView(frame: CGRect(origin: CGPointZero, size: CustomAnnotationView.size))
+    private let thumbnailImageView: UIImageView! = UIImageView(frame: CGRect(origin: CGPointMake(-7, -40), size: CustomAnnotationView.size))
 
     override init(annotation: MKAnnotation!, reuseIdentifier: String!) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)

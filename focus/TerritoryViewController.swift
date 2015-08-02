@@ -235,7 +235,6 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         userLocAnnotation.coordinate = userLocation
         userLocAnnotation.title = "現在地"
-
         MyMapView.alpha = 1.0
         
         let MySpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
