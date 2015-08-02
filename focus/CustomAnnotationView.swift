@@ -21,13 +21,9 @@ class CustomAnnotationView: MKAnnotationView {
 
     override init(annotation: MKAnnotation!, reuseIdentifier: String!) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-
         self.frame = CGRect(origin: self.frame.origin, size: CustomAnnotationView.size)
-
         self.canShowCallout = true
-
         self.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
-
         self.thumbnailImageView.contentMode = .ScaleAspectFill
         self.thumbnailImageView.clipsToBounds = true
         self.addSubview(self.thumbnailImageView)

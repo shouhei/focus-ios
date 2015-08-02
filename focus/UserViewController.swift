@@ -32,7 +32,6 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         } else {
             // 未登録ならユーザー登録
             self.view.backgroundColor = UIColor.whiteColor()
-            
             setRegisterButton()
             setNameTextField()
             setEmailTextField()
@@ -56,7 +55,6 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         } else {
             return true
         }
-
     }
     
     func goToNextView() {
@@ -81,31 +79,15 @@ class UserViewController: UIViewController, UITextFieldDelegate {
     func register(name:String, email:String, password:String) {
         userModel.add(nameTextField.text, email: emailTextField.text, password: passwordTextField.text)
         let user = userModel.getMe()
-        println(user)
     }
     
     func request_api(name:String, email:String, password:String) {
-        println(name)
-        println(email)
-        println(password)
-        println(1)
         let param = ["name": name, "mail_address": email, "password": password]
         Alamofire.request(.POST, api_url_user_add, parameters: param).responseJSON { (request, response, responseData, error) -> Void in
-            println(2)
-//            println(re)
-//            let data: AnyObject = responseData!
-//            println(data)
-            println(request)
-            println(response)
-            println(responseData)
-            println(3)
             let results = SwiftyJSON.JSON(responseData!)
-            println(results)
             let token: String = results["response"]["token"].string!
-            println(token)
             self.userModel.setToken(token);
          }
-        
     }
     
     func setRegisterButton() {
@@ -123,19 +105,15 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         if (!checkifEmpty()) {
             return showError("未入力の項目があります。")
         }
-        
         if (!checkIfEmailIsValid()) {
             return showError("有効なメールアドレスを入力してください。")
         }
-        
         if (!checkPassword()) {
             return showError("パスワードが一致しません。")
         }
-        
         var name = nameTextField.text
         var email = emailTextField.text
         var password = passwordTextField.text
-    
         register(name, email: email, password: password)
         request_api(name, email: email, password: password)
         goToNextView()

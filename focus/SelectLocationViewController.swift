@@ -9,10 +9,8 @@ import UIKit
 import SwiftyJSON
 
 protocol SelectLocationDelegate{
-    
     func locationSelect(locationName: String, locationId: String)
     func backbutton()
-    
 }
 
 class SelectLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -20,7 +18,6 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     private var _json: JSON!
     let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
     var delegate: SelectLocationDelegate!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +48,17 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 10
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("CELL_ID") as? UITableViewCell
-        if(cell == nil)
-        {
+        if(cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL_ID")
         }
-        
-        
+
         cell!.textLabel!.text = self._json["response"]["venues"][indexPath.row]["name"].string
-        
         cell?.textLabel?.font = UIFont(name:"Menlo-BoldItalic", size: 15)
         
         return cell!
@@ -74,38 +66,26 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func backButtonTapped(Sender: UIButton) {
-        
         delegate.backbutton()
-//        self.modalTransitionStyle = UIModalTransitionStyle.
         self.dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         var location: String = self._json["response"]["venues"][indexPath.row]["name"].string!
         var id: String = self._json["response"]["venues"][indexPath.row]["id"].string!
-        
-        println(location)
-        
+
         delegate.locationSelect(location, locationId: id)
-        
         self.dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     func setUpParameter(json: JSON){
-        
         self._json = json
-        
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 

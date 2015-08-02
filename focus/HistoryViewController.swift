@@ -38,11 +38,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // インジケータをViewに追加する.
         self.view.addSubview(myActivityIndicator)
-        
         var token = userModel.getToken()
-        
         connection(token)
-        
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
         barBg.backgroundColor = UIColorFromHex(0xC2B49A) // TODO なんかいい感じのいろに
         let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
@@ -51,120 +48,69 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         barLabel.textColor = UIColor.whiteColor()
         barLabel.textAlignment = NSTextAlignment.Center
         barBg.addSubview(barLabel)
-        
-        
+
         tableView.registerClass(HistoryCell.self, forCellReuseIdentifier: "customCell")
-        
         tableView.delegate = self
         tableView.dataSource = self
         
         self.view.addSubview(barBg)
-    
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if self._json == nil{
-            
             return 0
-            
         } else {
-            
             return _json["response"].count
         }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
         return 50.0
-    
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         var cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! HistoryCell
-        
-        
         if self._json == nil {
-            
             cell.placeLabel.text = ""
             cell.timeLabel.text = ""
             var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
-        
             let crownimage = UIImage(named: "crown")
-        
             myImageView.image = crownimage
-        
             cell.accessoryView = myImageView
-        
         } else {
-            
             cell.placeLabel.text = self._json["response"][indexPath.row]["spot"]["name"].string
             cell.timeLabel.text = self._json["response"][indexPath.row]["result_time"].string
-            
             var myImageView = UIImageView(frame: CGRectMake(0,0,25,25))
-            
             let crownimage = UIImage(named: "crown")
-            
             myImageView.image = crownimage
-            
             cell.accessoryView = myImageView
             self.indicator.stopAnimating()
-            
         }
-        
         return cell
-        
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
         let rankViewController: RankViewController = RankViewController()
         println(self._json["response"][indexPath.row]["spot"]["id"].int!)
         rankViewController.setUpParameter(self._json["response"][indexPath.row]["spot"]["id"].int!, placename: self._json["response"][indexPath.row]["spot"]["name"].string!)
         rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         self.presentViewController(rankViewController, animated: true, completion: nil)
-
     }
 
-    
-//    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-//    
-//        println(indexPath.row)
-//    
-//    }
-    
-    
     func connection(token: String) -> Void {
-        
         var headers = ["Authorized-Token": token]
-        
         Alamofire.request(.GET, histoyUrl, headers: headers).responseJSON{ (request, response, data, error) in
-            println(response)
             if (response?.statusCode == 200) {
-                
-            
                 self._json = SwiftyJSON.JSON(data!)
-                
-                println(self._json)
-                
                 self.tableView.reloadData()
-                
                 self.view.addSubview(self.tableView)
-
-                
-            }else {
+            } else {
                 //TODO エラー処理
-                println(error)
             }
-            
         }
-        
     }
-    
 }

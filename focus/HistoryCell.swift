@@ -15,19 +15,13 @@ class HistoryCell:  UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!)
-    {
-        
-        //First Call Super
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         placeLabel = UILabel(frame: CGRectMake(10, 20, 150, 15));
@@ -40,11 +34,9 @@ class HistoryCell:  UITableViewCell{
         timeLabel.font = UIFont(name: "IowanOldStyle-Italic", size: 20)
         
         self.addSubview(timeLabel);
-        
     }
     
-    required init(coder aDecoder: NSCoder)
-    {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
