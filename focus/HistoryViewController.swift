@@ -14,7 +14,7 @@ import SwiftyJSON
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     private var myActivityIndicator: UIActivityIndicatorView!
-    let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight()))
+    let tableView = UITableView(frame: CGRectMake(0, 70, windowWidth(),windowHeight() - 118))
     var _json: JSON!
     let histoyUrl: String = "http://54.191.229.14/users/"
     private let userModel = UserModel()
