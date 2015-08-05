@@ -27,6 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var foursquareUrl: String!
     private var json: JSON!
     private var _location: String!
+    private var _rank: Int!
     private var _locationId: String!
     private var timerModel = TimerModel()
     private var startTime: NSDate!
@@ -76,7 +77,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         //locationLabel
         
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        locationLabel.textColor = UIColorFromHex(0xf5f5f5)
+        locationLabel.textColor = UIColor.whiteColor()
         locationLabel.textAlignment = NSTextAlignment.Center
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
@@ -208,8 +209,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         } else {
             //API
             requestApiEnd()
-            //結果画面移行画面
-            goToResultView()
         }
         
         //API処理
@@ -259,16 +258,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
             
             if (response?.statusCode == 200) {
                 let results = SwiftyJSON.JSON(responseData!)
-            } else {
-                // TODO エラー処理
+                self._rank = results["response"]["rank"].intValue
+                self.goToResultView()
+            }else {
+                println(error)
             }
         }
     }
     
     func goToResultView() {
+        println("goresutl")
+        println(_location)
+        println(Int(tmp))
+        println(223)
         let resultViewController: ResultViewController = ResultViewController()
-        resultViewController.setUpParameter(_location, timer: Int(tmp))
+        println(224)
+        resultViewController.setUpParameter(_location, timer: Int(tmp), rank: _rank)
+        println(225)
         self.presentViewController(resultViewController, animated: true, completion: nil)
+        println(226)
         resultViewController.delegate = self
     }
     
@@ -278,7 +286,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         self.lng = manager.location.coordinate.longitude
         foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(String(stringInterpolationSegment: self.lat)),\(String(stringInterpolationSegment: self.lng))&client_id=ZBQVZ0XB5QSSEWODAWANQWIB51KNQTZBQVKIE0NYT435C1JT&client_secret=NNZB2RJAWHNQGE5WCFCWFYSWZILDZPJQ4JRW3ZHQEMJBLUSH&v=20150714"
     }
-    
     
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         //TODOエラー処理
