@@ -80,11 +80,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         locationLabel = UILabel(frame: CGRectMake(0, 0, 300, 50))
         locationLabel.textColor = UIColor.whiteColor()
         locationLabel.textAlignment = NSTextAlignment.Center
+        locationLabel.font = UIFont.boldSystemFontOfSize(UIFont.labelFontSize())
         locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
         
         //timerButton
         var image = UIImage(named: "startbutton.png")
-        timerButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
+        timerButton = UIButton(frame: CGRectMake(0, 0, 150, 60))
         timerButton.setImage(image, forState: UIControlState.Normal)
         timerButton.layer.position = CGPointMake(windowWidth()/2, windowHeight() - 125)
         timerButton.addTarget(self, action: "onTimerButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
