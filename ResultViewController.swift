@@ -44,6 +44,7 @@ class ResultViewController: UIViewController {
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.font = UIFont(name: "GillSans-Bold", size: 23)
             timerLabel.textColor = UIColorFromHex(0xFFF9E0)
+            timerFormat(_timer)
             timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
             //locationLabel
             
