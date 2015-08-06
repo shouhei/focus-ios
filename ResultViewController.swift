@@ -32,6 +32,7 @@ class ResultViewController: UIViewController {
     private var myImageView = UIImageView(frame: CGRectMake(0, -50, 350, 600))
     private var _resultBool = true
     let userModel = UserModel()
+    private var bool = true;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +128,7 @@ class ResultViewController: UIViewController {
             twitterButton.setImage(twitterImage, forState: UIControlState.Normal)
             twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 170)
             twitterButton.addTarget(self, action: "onPostToTwitter:", forControlEvents: UIControlEvents.TouchUpInside)
-
+            bool = false
         }
         
         self.view.addSubview(timerLabel)
@@ -165,7 +166,11 @@ class ResultViewController: UIViewController {
         myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
         
         // 投稿するテキストを指定.
-        myComposeView.setInitialText("\(userModel.getName())さんは\(_location)で\(_timer)秒集中しました！ #FOCUS")
+        if (bool) {
+            myComposeView.setInitialText("\(userModel.getName())さんは\(_location)で\(_timer)秒集中しました！ #FOCUS")
+        } else {
+            myComposeView.setInitialText("その日\(userModel.getName())さんは思い出した。スマホに支配されていた恐怖を...\(_location)で... #FOCUS")
+        }
         
         // myComposeViewの画面遷移.
         self.presentViewController(myComposeView, animated: true, completion: nil)
