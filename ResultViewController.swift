@@ -18,9 +18,11 @@ class ResultViewController: UIViewController {
     
     private var locationLabel: UILabel!
     private var timerLabel: UILabel!
+    private var rankLabel: UILabel!
     private var messageLabel: UILabel!
     private var _location: String!
     private var _timer: Int!
+    private var _rank: Int!
     private var againButton: UIButton!
     private var twitterButton: UIButton!
     var delegate: ResultDelegate!
@@ -29,6 +31,7 @@ class ResultViewController: UIViewController {
     var myComposeView : SLComposeViewController!
     private var myImageView = UIImageView(frame: CGRectMake(0, 0, 350, 600))
     private var _resultBool = true
+    let userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +44,6 @@ class ResultViewController: UIViewController {
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.font = UIFont(name: "GillSans-Bold", size: 23)
             timerLabel.textColor = UIColorFromHex(0xFFF9E0)
-            timerFormat(_timer)
             timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
             //locationLabel
             
@@ -123,34 +125,39 @@ class ResultViewController: UIViewController {
         
     }
     
-    func setUpParameter(location: String?, timer: Int?, resultbool: Bool) {
+    func setUpParameter(location: String?, timer: Int?, resultbool: Bool, rank: Int?) {
         
         self._location = location
         self._timer = timer
         self._resultBool = resultbool
+        self._rank = rank
         
         println(_location)
         println(_timer)
         println(_resultBool)
-        
     }
     
+    func setUpParameter(location: String?, timer: Int?, rank: Int?) {
+        self._location = location
+        self._timer = timer
+        self._rank = rank
+    }
+
+
     func onAgainButtonClick(sender: UIButton){
-        
         self.dismissViewControllerAnimated(true, completion: nil)
         delegate.resetTimer()
-        
     }
     
     func onPostToTwitter(sender : UIButton) {
         
         // SLComposeViewControllerのインスタンス化.
+        
         // ServiceTypeをTwitterに指定.
         myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
         
         // 投稿するテキストを指定.
-        myComposeView.setInitialText("#FOCUS")
-        
+        myComposeView.setInitialText("\(userModel.getName())さんは\(_location)で\(_timer)秒集中しました！ #FOCUS")
         
         // myComposeViewの画面遷移.
         self.presentViewController(myComposeView, animated: true, completion: nil)
@@ -158,7 +165,6 @@ class ResultViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -169,7 +175,5 @@ class ResultViewController: UIViewController {
         
         timerLabel.text = String(format: "%02d時間%02d分%02d秒", h, m, s)
     }
-    
-    
 }
 

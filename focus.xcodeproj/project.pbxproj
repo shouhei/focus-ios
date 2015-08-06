@@ -33,6 +33,7 @@
 		65C169B41B593A6900FCFEC4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C169B31B593A6900FCFEC4 /* libsqlite3.dylib */; };
 		65C169B91B59E38F00FCFEC4 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */; };
 		65C169BB1B5A7FE900FCFEC4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */; };
+		9839F6C8F717065677EEA82E /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9839F4C2AE2F8279EBFA64B9 /* CustomAnnotationView.swift */; };
 		BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6709991B4B8A7D00303C78 /* AppDelegate.swift */; };
 		BA67099C1B4B8A7D00303C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67099B1B4B8A7D00303C78 /* ViewController.swift */; };
 		BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA67099D1B4B8A7D00303C78 /* Main.storyboard */; };
@@ -81,6 +82,7 @@
 		65C169B71B593B3800FCFEC4 /* Briding-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Briding-Header.h"; sourceTree = "<group>"; };
 		65C169B81B59E38F00FCFEC4 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultViewController.swift; path = ../ResultViewController.swift; sourceTree = "<group>"; };
 		65C169BA1B5A7FE900FCFEC4 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		9839F4C2AE2F8279EBFA64B9 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		BA6709941B4B8A7D00303C78 /* focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6709981B4B8A7D00303C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6709991B4B8A7D00303C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				65307F701B69E757004D208E /* stopbutton.png */,
 				BA6709971B4B8A7D00303C78 /* Supporting Files */,
 				BA6709AC1B4B8A7D00303C78 /* focusTests */,
+				9839F4C2AE2F8279EBFA64B9 /* CustomAnnotationView.swift */,
 			);
 			path = focus;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				59882F6C1B5E04CD00D148A0 /* AloeTweenChain.swift in Sources */,
 				BA67099A1B4B8A7D00303C78 /* AppDelegate.swift in Sources */,
 				6556FCCB1B65707C00C4156B /* RankCell.swift in Sources */,
+				9839F6C8F717065677EEA82E /* CustomAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

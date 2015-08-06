@@ -66,192 +66,167 @@ class TerritoryViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         //まだ認証が済んでなければ確認ダイアログを表示
         if (status == CLAuthorizationStatus.NotDetermined) {
-            
             self.myLocationManager.requestAlwaysAuthorization();
-            
         }
         myLocationManager.distanceFilter = 100.0
-        
         self.myLocationManager.startUpdatingLocation()
-        
-        
         self.view.addSubview(MyMapView)
         MyMapView.alpha = 0
         
         self.view.addSubview(mySearchBar)
         self.view.addSubview(searchBarBg)
-        
-        
-        
-        
-        
         let myPointAnnotation: MKPointAnnotation = MKPointAnnotation()
-
         self.setup()
     }
     
     func setup() {
         let headers = ["Authorized-Token": userModel.getToken()]
         Alamofire.request(.GET, api_url_owners, headers:headers).responseJSON { (request, response, responseData, error) -> Void in
-            println(request)
-            println(response)
-            println(responseData)
-            println(request.allHTTPHeaderFields)
             if (response?.statusCode == 200) {
                 self.results = SwiftyJSON.JSON(responseData!)
-                println(self.results)
-                println(1)
                 for (index: String, j: JSON) in self.results["response"] {
-                    println(j)
                     if(j["spot"] == nil) {
                         continue
                     }
-                    
-                    // 座標を設定.
-                    println(j)
-                    
                     let lat: CLLocationDegrees = j["spot"]["lat"].doubleValue
                     let lng: CLLocationDegrees = j["spot"]["lng"].doubleValue
-                    
                     var coordinate = CLLocationCoordinate2DMake(lat, lng)
-                    var pin: CustomAnnotation = CustomAnnotation(_coordinate: coordinate)
-                    
-                    // タイトルを設定.
+                    var pin: CustomAnnotation = CustomAnnotation(_coordinate: coordinate, _spot_id: j["spot_id"].intValue, _spot_name: j["spot"]["name"].stringValue)
                     pin.title = j["spot"]["name"].stringValue
-                    // サブタイトルを設定.
-                    pin.subtitle = j["data"][0]["user"]["name"].stringValue + j["data"][0]["sum"].stringValue
-                    
+                    pin.subtitle = j["data"][0]["user"]["name"].stringValue + "  " + self.formatTime(j["data"][0]["sum"].stringValue)
                     var time = j["data"][0]["sum"].stringValue
                     let arr2: [String] = time.componentsSeparatedByString(":")
-                    
                     pin.initialize = arr2[2].toInt()
-                    
-                    // MapViewにピンを追加.
-                    println(7)
                     self.MyMapView.addAnnotation(pin)
                     
                 }
-                println(10)
-                
-                
-            }else {
-                println(request.allHTTPHeaderFields)
-                println(error)
+            } else {
+                // TODO エラー処理
             }
         }
+    }
+
+    func formatTime(timer_str: String) -> String {
+        let h = timer_str.startIndex
+        let c = h.successor()
+        let m1 = c.successor()
+        let m2 = m1.successor()
+        let cc = m2.successor()
+        let s1 = cc.successor()
+        let s2 = s1.successor()
+        var result = ""
+        if (timer_str[h] != "0") {
+            result += "\(timer_str[h])時間"
+        }
+        if (timer_str[m1] != "0") {
+            if (timer_str[m2] != "0") {
+                result += "\(timer_str[m1])\(timer_str[m2])分"
+            }
+        } else {
+            if (timer_str[m2] != "0") {
+                result += "\(timer_str[m2])分"
+            }
+        }
+        if (timer_str[s1] != "0") {
+            if (timer_str[s2] != "0") {
+                result += "\(timer_str[s1])\(timer_str[s2])秒"
+            }
+        } else {
+            if (timer_str[s2] != "0") {
+                result += "\(timer_str[s2])秒"
+            }
+            if (timer_str[s2] == "0") {
+                result += "0分"
+            }
+        }
+        return result
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         // キーボードを隠す
-        
         mySearchBar.resignFirstResponder()
-        
         // 目的地の文字列から座標検索
         var geocoder = CLGeocoder()
         geocoder.geocodeAddressString(mySearchBar.text, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
-            
             if let placemark = placemarks?[0] as? CLPlacemark {
                 // 目的地の座標を取得
                 self.destLocation = CLLocationCoordinate2DMake(placemark.location.coordinate.latitude, placemark.location.coordinate.longitude)
                 //表示領域設定
                 self.MyMapView.setCenterCoordinate(self.destLocation, animated: true)
-                
                 let MySpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
                 let MyRegion: MKCoordinateRegion = MKCoordinateRegionMake(self.destLocation, MySpan)
-                
                 self.MyMapView.region = MyRegion
-                
-                // 現在地の取得を開始
-                //                self.myLocationManager.startUpdatingLocation()
-                
             }
         })
     }
     
-    /*
-    Cancelボタンが押された時に呼ばれる
-    */
-    
+
+    // Cancelボタンが押された時に呼ばれる
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         mySearchBar.text = ""
         mySearchBar.resignFirstResponder()
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        
         var userLocation = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude)
-        
         var userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
-        
         userLocAnnotation.coordinate = userLocation
         userLocAnnotation.title = "現在地"
-        
-        MyMapView.addAnnotation(userLocAnnotation)
-        
         MyMapView.alpha = 1.0
-        
         let MySpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let MyRegion: MKCoordinateRegion = MKCoordinateRegionMake(userLocation, MySpan)
-        
         self.MyMapView.region = MyRegion
-        //        self.view.addSubview(MyMapView)
-        
     }
-    
-    
-    
+
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!,didFailWithError error: NSError!){
         print("locationManager error")
     }
-    
+
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        
         let customAnnotation = annotation as? CustomAnnotation
-        println("time:\(customAnnotation?.initialize)")
-        
-        
-        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
-            return nil
-        } else {
-            let identifier = "annotation"
-            if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("annotation") { // 再利用できる場合はそのまま返す
-                return annotationView
-            } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
-                
-                //println(stringToInt(results["data"][0]["sum"].stringValue))
-                
-                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView.frame.size = CGSize(width: 10, height: 10)
-                if (customAnnotation?.initialize >= 30) {
-                    annotationView.image = UIImage(named: "fountain_pen60")
-                } else if (customAnnotation?.initialize >= 20) {
-                    annotationView.image = UIImage(named: "pen60")
-                } else {
-                    annotationView.image = UIImage(named: "pencil60")
-                }
-                
-                return annotationView
-            }
+        let customAnnotationViewID = "customAnnotationView"
+        var customAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(customAnnotationViewID) as? CustomAnnotationView
+
+        if customAnnotationView == nil {
+            customAnnotationView = CustomAnnotationView(annotation: customAnnotation, reuseIdentifier: customAnnotationViewID)
         }
+        customAnnotationView!.frame.size = CGSize(width: 10, height: 10)
+        let image: UIImage?
+        if (customAnnotation?.initialize >= 30) {
+            image = UIImage(named: "fountain_pen60")
+        } else if (customAnnotation?.initialize >= 20) {
+            image = UIImage(named: "pen60")
+        } else {
+            image = UIImage(named: "pencil60")
+        }
+        customAnnotation?.image = image!;
+        customAnnotationView?.thumbnailImage = image;
+        return customAnnotationView
     }
-    
-    
-    
-//    func stringToInt(date_string: String) -> NSDate {
-//        var date_formatter: NSDateFormatter = NSDateFormatter()
-//        date_formatter.locale     = NSLocale(localeIdentifier: "ja")
-//        date_formatter.dateFormat = "HH:mm:ss"
-//        var date_nsdate: NSDate = date_formatter.dateFromString(date_string)!
-//        
-//        return date_nsdate
-//        
-//    }
+
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        let customAnnotation = view.annotation as? CustomAnnotation
+        let spot_id = customAnnotation!.spot_id
+        let spot_name = customAnnotation!.spot_name
+        let rankViewController: RankViewController = RankViewController()
+        rankViewController.setUpParameter(spot_id, placename: spot_name)
+        rankViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
+        self.presentViewController(rankViewController, animated: true, completion: nil)
+    }
+
+    func stringToInt(date_string: String) -> NSDate {
+        var date_formatter: NSDateFormatter = NSDateFormatter()
+        date_formatter.locale     = NSLocale(localeIdentifier: "ja")
+        date_formatter.dateFormat = "HH:mm:ss"
+        var date_nsdate: NSDate = date_formatter.dateFromString(date_string)!
+
+        return date_nsdate
+    }
     
 }

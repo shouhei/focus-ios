@@ -20,19 +20,13 @@ class RankCell:  UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!)
-    {
-        
-        //First Call Super
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         nameLabel = UILabel(frame: CGRectMake(50, 20, 300, 15));
@@ -48,11 +42,9 @@ class RankCell:  UITableViewCell{
         rankview = UIImageView(frame: CGRectMake(10, 10, 20, 20))
         rankview.image = rankImage
         self.addSubview(rankview);
-        
     }
     
-    required init(coder aDecoder: NSCoder)
-    {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

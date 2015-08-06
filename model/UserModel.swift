@@ -98,4 +98,9 @@ class UserModel {
         let user = self.getMe()
         return user!["token"] as! String
     }
+
+    func getName() -> String {
+        let user = self.getMe()
+        return user!["name"] as! String
+    }
 }
