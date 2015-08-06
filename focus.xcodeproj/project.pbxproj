@@ -23,6 +23,10 @@
 		65307F6B1B689B51004D208E /* start_to_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F6A1B689B51004D208E /* start_to_focus.png */; };
 		65307F6D1B689B59004D208E /* startbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F6C1B689B59004D208E /* startbutton.png */; };
 		65307F711B69E757004D208E /* stopbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F701B69E757004D208E /* stopbutton.png */; };
+		65307F731B6EF66F004D208E /* retrybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F721B6EF66F004D208E /* retrybutton.png */; };
+		65307F751B6EF67F004D208E /* twitterbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F741B6EF67F004D208E /* twitterbutton.png */; };
+		65307F771B6EF692004D208E /* focus_regretful.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F761B6EF692004D208E /* focus_regretful.png */; };
+		65307F791B6EF69A004D208E /* focus_result.png in Resources */ = {isa = PBXBuildFile; fileRef = 65307F781B6EF69A004D208E /* focus_result.png */; };
 		653F932F1B64B8D400BB8118 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F932E1B64B8D400BB8118 /* HistoryCell.swift */; };
 		6556FCCB1B65707C00C4156B /* RankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6556FCCA1B65707C00C4156B /* RankCell.swift */; };
 		65AF7C8B1B568D2500543970 /* SelectLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */; };
@@ -66,6 +70,10 @@
 		65307F6A1B689B51004D208E /* start_to_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_to_focus.png; sourceTree = "<group>"; };
 		65307F6C1B689B59004D208E /* startbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startbutton.png; sourceTree = "<group>"; };
 		65307F701B69E757004D208E /* stopbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopbutton.png; sourceTree = "<group>"; };
+		65307F721B6EF66F004D208E /* retrybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retrybutton.png; sourceTree = "<group>"; };
+		65307F741B6EF67F004D208E /* twitterbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterbutton.png; sourceTree = "<group>"; };
+		65307F761B6EF692004D208E /* focus_regretful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = focus_regretful.png; sourceTree = "<group>"; };
+		65307F781B6EF69A004D208E /* focus_result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = focus_result.png; sourceTree = "<group>"; };
 		653F932E1B64B8D400BB8118 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		6556FCCA1B65707C00C4156B /* RankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankCell.swift; path = ../model/RankCell.swift; sourceTree = "<group>"; };
 		65AF7C8A1B568D2500543970 /* SelectLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationViewController.swift; sourceTree = "<group>"; };
@@ -193,7 +201,11 @@
 				BA67099D1B4B8A7D00303C78 /* Main.storyboard */,
 				BA6709A01B4B8A7D00303C78 /* Images.xcassets */,
 				65307F5A1B67D448004D208E /* focus_home.png */,
+				65307F741B6EF67F004D208E /* twitterbutton.png */,
+				65307F721B6EF66F004D208E /* retrybutton.png */,
 				65307F6A1B689B51004D208E /* start_to_focus.png */,
+				65307F781B6EF69A004D208E /* focus_result.png */,
+				65307F761B6EF692004D208E /* focus_regretful.png */,
 				65307F6C1B689B59004D208E /* startbutton.png */,
 				65307F701B69E757004D208E /* stopbutton.png */,
 				BA6709971B4B8A7D00303C78 /* Supporting Files */,
@@ -318,8 +330,12 @@
 				65307F711B69E757004D208E /* stopbutton.png in Resources */,
 				BA67099F1B4B8A7D00303C78 /* Main.storyboard in Resources */,
 				65307F6B1B689B51004D208E /* start_to_focus.png in Resources */,
+				65307F791B6EF69A004D208E /* focus_result.png in Resources */,
+				65307F751B6EF67F004D208E /* twitterbutton.png in Resources */,
 				65307F6D1B689B59004D208E /* startbutton.png in Resources */,
 				65307F5B1B67D448004D208E /* focus_home.png in Resources */,
+				65307F771B6EF692004D208E /* focus_regretful.png in Resources */,
+				65307F731B6EF66F004D208E /* retrybutton.png in Resources */,
 				BA6709A11B4B8A7D00303C78 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

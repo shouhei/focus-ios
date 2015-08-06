@@ -54,7 +54,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         tableView.registerClass(HistoryCell.self, forCellReuseIdentifier: "customCell")
-        
+        tableView.backgroundColor = UIColorFromHex(0xFFF9E0)
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -113,6 +113,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             myImageView.image = crownimage
             
+            cell.backgroundColor = UIColorFromHex(0xFFF9E0)
             cell.accessoryView = myImageView
             self.indicator.stopAnimating()
             

@@ -29,7 +29,7 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         connection(token)
         
         let barBg = UIView(frame: CGRectMake(0, 0, windowWidth(), 70))
-        barBg.backgroundColor = UIColorFromHex(0x00bfff) // TODO なんかいい感じのいろに
+        barBg.backgroundColor = UIColorFromHex(0xC2B49A) // TODO なんかいい感じのいろに
         let barLabel = UILabel(frame: CGRectMake(0, 30, windowWidth(), 30))
         
         
@@ -39,7 +39,7 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
         barBg.addSubview(barLabel)
         
         tableView.registerClass(RankCell.self, forCellReuseIdentifier: "customCell")
-        
+        tableView.backgroundColor = UIColorFromHex(0xFFF9E0)
         tableView.delegate = self
         tableView.dataSource = self
     
@@ -100,7 +100,7 @@ class RankViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         
         }
-        
+        cell.backgroundColor = UIColorFromHex(0xFFF9E0)
         return cell
         
     }

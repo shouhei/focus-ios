@@ -42,6 +42,7 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         
         barBg.addSubview(barLabel)
         
+        tableView.backgroundColor = UIColorFromHex(0xFFF9E0)
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,6 +69,8 @@ class SelectLocationViewController: UIViewController, UITableViewDelegate, UITab
         cell!.textLabel!.text = self._json["response"]["venues"][indexPath.row]["name"].string
         
         cell?.textLabel?.font = UIFont(name:"Menlo-BoldItalic", size: 15)
+        
+        cell?.backgroundColor = UIColorFromHex(0xFFF9E0)
         
         return cell!
 

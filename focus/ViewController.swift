@@ -40,6 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     private var startImage = CIImage(image: UIImage(named: "start_to_focus.png"))
     private var stopImage = CIImage(image: UIImage(named: "focus_home.png"))
     private var myImageView = UIImageView(frame: CGRectMake(0, 0, 350, 600))
+    private var resultBool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,6 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
                 self.view.addSubview(locationLabel)
                 
             } else {
+                resultBool = false
                 NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("goToResultView"), userInfo: nil, repeats: false)
             }
         } else {
@@ -295,7 +297,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
     
     func goToResultView() {
         let resultViewController: ResultViewController = ResultViewController()
-        resultViewController.setUpParameter(_location, timer: Int(tmp))
+        resultViewController.setUpParameter(_location, timer: Int(tmp), resultbool: resultBool)
         self.presentViewController(resultViewController, animated: true, completion: nil)
         resultViewController.delegate = self
     }
@@ -356,7 +358,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, SelectLocatio
         timerLabel.text = ""
         timerRunning = false
         myUserDafault.setBool(timerRunning, forKey: "timerRunning")
-        
+        resultBool = true
         timer.invalidate()
         
         tmp = 0
