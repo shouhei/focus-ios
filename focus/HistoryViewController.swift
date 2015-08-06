@@ -58,6 +58,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(barBg)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.viewDidLoad()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

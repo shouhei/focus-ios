@@ -43,6 +43,7 @@ class ResultViewController: UIViewController {
             timerLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.font = UIFont(name: "GillSans-Bold", size: 23)
+            timerFormat(_timer)
             timerLabel.textColor = UIColorFromHex(0xFFF9E0)
             timerFormat(_timer)
             timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
@@ -64,19 +65,29 @@ class ResultViewController: UIViewController {
             messageLabel.textAlignment = NSTextAlignment.Center
             messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
             
+            // rankLabel
+            
+            rankLabel = UILabel(frame: CGRectMake(0, 0, 200, 50))
+            rankLabel.font = UIFont(name: "GillSans-Bold", size: 18)
+            rankLabel.textColor = UIColorFromHex(0xFFF9E0)
+            rankLabel.text = "現在\(_rank)位です！"
+            rankLabel.textAlignment = NSTextAlignment.Center
+            rankLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 + 50)
+            self.view.addSubview(rankLabel)
+            
             //againButton
             
             var retryImage = UIImage(named: "retrybutton.png")
             againButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
             againButton.setImage(retryImage, forState: UIControlState.Normal)
-            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 55)
+            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 105)
             againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             
             //twitterButton
             var twitterImage = UIImage(named: "twitterbutton.png")
             twitterButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
             twitterButton.setImage(twitterImage, forState: UIControlState.Normal)
-            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 113)
+            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 163)
             twitterButton.addTarget(self, action: "onPostToTwitter:", forControlEvents: UIControlEvents.TouchUpInside)
             self.view.addSubview(locationLabel)
 
@@ -89,7 +100,7 @@ class ResultViewController: UIViewController {
             timerLabel.textAlignment = NSTextAlignment.Center
             timerLabel.font = UIFont(name: "GillSans-Bold", size: 23)
             timerLabel.textColor = UIColor.blackColor()
-            timerFormat(_timer)
+            timerLabel.text = "残念でした"
             timerLabel.layer.position = CGPoint(x: windowWidth()/2 + 10, y: windowHeight()/2 - 70)
             
             
@@ -132,10 +143,6 @@ class ResultViewController: UIViewController {
         self._timer = timer
         self._resultBool = resultbool
         self._rank = rank
-        
-        println(_location)
-        println(_timer)
-        println(_resultBool)
     }
     
     func setUpParameter(location: String?, timer: Int?, rank: Int?) {
