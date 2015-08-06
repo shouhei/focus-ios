@@ -29,7 +29,7 @@ class ResultViewController: UIViewController {
     private var resultImage = CIImage(image: UIImage(named: "focus_result.png"))
     private var regretafulImage = CIImage(image: UIImage(named: "focus_regretful.png"))
     var myComposeView : SLComposeViewController!
-    private var myImageView = UIImageView(frame: CGRectMake(0, 0, 350, 600))
+    private var myImageView = UIImageView(frame: CGRectMake(0, -50, 350, 600))
     private var _resultBool = true
     let userModel = UserModel()
     
@@ -46,7 +46,7 @@ class ResultViewController: UIViewController {
             timerFormat(_timer)
             timerLabel.textColor = UIColorFromHex(0xFFF9E0)
             timerFormat(_timer)
-            timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
+            timerLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 150)
             //locationLabel
             
             locationLabel = UILabel(frame: CGRectMake(0, 0, windowHeight(), 50))
@@ -54,7 +54,7 @@ class ResultViewController: UIViewController {
             locationLabel.font = UIFont(name: "GillSans-Bold", size: 18)
             locationLabel.textColor = UIColorFromHex(0xFFF9E0)
             locationLabel.text = "\(_location)で"
-            locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 50)
+            locationLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 100)
             
             //messagelabel
             
@@ -63,7 +63,7 @@ class ResultViewController: UIViewController {
             messageLabel.textColor = UIColorFromHex(0xFFF9E0)
             messageLabel.text = "集中しました！"
             messageLabel.textAlignment = NSTextAlignment.Center
-            messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
+            messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 - 50)
             
             // rankLabel
             
@@ -72,22 +72,22 @@ class ResultViewController: UIViewController {
             rankLabel.textColor = UIColorFromHex(0xFFF9E0)
             rankLabel.text = "現在\(_rank)位です！"
             rankLabel.textAlignment = NSTextAlignment.Center
-            rankLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 + 50)
+            rankLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
             self.view.addSubview(rankLabel)
             
             //againButton
             
             var retryImage = UIImage(named: "retrybutton.png")
-            againButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
+            againButton = UIButton(frame: CGRectMake(0, 0, 150, 60))
             againButton.setImage(retryImage, forState: UIControlState.Normal)
-            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 105)
+            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 85)
             againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             
             //twitterButton
             var twitterImage = UIImage(named: "twitterbutton.png")
-            twitterButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
+            twitterButton = UIButton(frame: CGRectMake(0, 0, 150, 60))
             twitterButton.setImage(twitterImage, forState: UIControlState.Normal)
-            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 163)
+            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 170)
             twitterButton.addTarget(self, action: "onPostToTwitter:", forControlEvents: UIControlEvents.TouchUpInside)
             self.view.addSubview(locationLabel)
 
@@ -101,7 +101,7 @@ class ResultViewController: UIViewController {
             timerLabel.font = UIFont(name: "GillSans-Bold", size: 23)
             timerLabel.textColor = UIColor.blackColor()
             timerLabel.text = "残念でした"
-            timerLabel.layer.position = CGPoint(x: windowWidth()/2 + 10, y: windowHeight()/2 - 70)
+            timerLabel.layer.position = CGPoint(x: windowWidth()/2 + 10, y: windowHeight()/2 - 120)
             
             
             //messagelabel
@@ -111,21 +111,21 @@ class ResultViewController: UIViewController {
             messageLabel.textColor = UIColorFromHex(0xFFF9E0)
             messageLabel.text = "次はもっと集中しましょう"
             messageLabel.textAlignment = NSTextAlignment.Center
-            messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2 + 40)
+            messageLabel.layer.position = CGPoint(x: windowWidth()/2, y: windowHeight()/2)
             
             //againButton
             
             var retryImage = UIImage(named: "retrybutton.png")
-            againButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
+            againButton = UIButton(frame: CGRectMake(0, 0, 150, 60))
             againButton.setImage(retryImage, forState: UIControlState.Normal)
-            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 95)
+            againButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 85)
             againButton.addTarget(self, action: "onAgainButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             
             //twitterButton
             var twitterImage = UIImage(named: "twitterbutton.png")
-            twitterButton = UIButton(frame: CGRectMake(0, 0, 200, 50))
+            twitterButton = UIButton(frame: CGRectMake(0, 0, 150, 60))
             twitterButton.setImage(twitterImage, forState: UIControlState.Normal)
-            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 153)
+            twitterButton.layer.position = CGPointMake(windowWidth()/2, windowHeight()/2 + 170)
             twitterButton.addTarget(self, action: "onPostToTwitter:", forControlEvents: UIControlEvents.TouchUpInside)
 
         }
